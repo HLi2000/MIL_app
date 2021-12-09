@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'war' // To create a webapp jar file, ie a '.war' file
+    id 'org.gretty' version '3.0.6' // This includes a jetty webserver
+    id 'application'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+}
+
+war{
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+    from {
+        // all of the library jar files used are to be zipped into the war file
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
+
+task stage(dependsOn: ['build', 'clean'])
+build.mustRunAfter clean
+
+dependencies {
+    compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+    implementation group: 'com.google.code.gson', name:'gson', version: '2.7'
+    runtimeOnly group: 'org.postgresql', name: 'postgresql', version: '42.2.18'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
