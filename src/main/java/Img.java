@@ -9,13 +9,6 @@ public class Img implements Serializable {
     private String file_name="";
     private InputStream thumbnail=null;
 
-//    public Img(String id, String region, String modality, String file_name){
-//        this.id=id;
-//        this.region=region;
-//        this.modality=modality;
-//        this.file_name=file_name;
-//    }
-
     public int getId() {
         return id;
     }
