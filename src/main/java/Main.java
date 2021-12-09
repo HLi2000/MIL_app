@@ -34,7 +34,7 @@ public class Main {
 
         //click actionListener should set img_selected
         Img img_selected=new Img();
-        img_selected.setFile_name("1.jpg");
+        img_selected.setFile_name("2.dcm");
         InputStream img_stream=cl.getImg(img_selected);
 
         //for test

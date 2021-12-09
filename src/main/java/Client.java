@@ -10,7 +10,6 @@ import java.nio.charset.StandardCharsets;
 
 public class Client {
     public Client(){
-
     }
 
     public Img[] search(SearchInfo searchInfo) throws Exception{
@@ -18,7 +17,7 @@ public class Client {
         Gson gson = new Gson();
         String jsonString = gson.toJson(searchInfo);
 
-        URL myURL = new URL("https://dbservlet.herokuapp.com/search");
+        URL myURL = new URL("https://mil-servlet.herokuapp.com/search");
         //URL myURL = new URL("http://localhost:8080/DBServlet/search");
         HttpURLConnection conn = (HttpURLConnection) myURL.openConnection();
 
@@ -45,48 +44,17 @@ public class Client {
             }
             return img_a;
         }
-
         bufferedReader.close();
-        Img img=new Img();
-        Img[] img_a={img};
-        return img_a;
+        return new Img[]{};
     }
-    /*
-    public InputStream getThumbnail(String filename) throws Exception{
-        // Set up the body data
-        byte[] body = filename.getBytes(StandardCharsets.UTF_8);
 
-        URL myURL = new URL("https://dbservlet.herokuapp.com/thumbnail");
-        //URL myURL = new URL("http://localhost:8080/DBServlet/search");
-        HttpURLConnection conn = (HttpURLConnection) myURL.openConnection();
-
-        // Set up the header
-        conn.setRequestMethod("POST");
-        conn.setRequestProperty("Accept", "text/html");
-        conn.setRequestProperty("charset", "utf-8");
-        conn.setRequestProperty("Content-Length", Integer.toString(body.length));
-        conn.setDoOutput(true);
-
-        // Write the body of the request
-        try (OutputStream outputStream = conn.getOutputStream()) {
-            outputStream.write(body, 0, body.length);
-        }
-
-        // Read the body of the response
-        InputStream file_stream=conn.getInputStream();
-        if (file_stream!=null) {
-            return file_stream;
-        }
-        return null;
-    }
-     */
     public InputStream getThumbnail(Img img) throws Exception{
         // Set up the body data
         String filename= img.getFile_name();
         byte[] body = filename.getBytes(StandardCharsets.UTF_8);
 
-        URL myURL = new URL("https://dbservlet.herokuapp.com/thumbnail");
-        //URL myURL = new URL("http://localhost:8080/DBServlet/search");
+        URL myURL = new URL("https://mil-servlet.herokuapp.com/thumbnail");
+
         HttpURLConnection conn = (HttpURLConnection) myURL.openConnection();
 
         // Set up the header
@@ -102,11 +70,7 @@ public class Client {
         }
 
         // Read the body of the response
-        InputStream file_stream=conn.getInputStream();
-        if (file_stream!=null) {
-            return file_stream;
-        }
-        return null;
+        return conn.getInputStream();
     }
 
     public InputStream getImg(Img img) throws Exception{
@@ -114,8 +78,8 @@ public class Client {
         String filename= img.getFile_name();
         byte[] body = filename.getBytes(StandardCharsets.UTF_8);
 
-        URL myURL = new URL("https://dbservlet.herokuapp.com/img");
-        //URL myURL = new URL("http://localhost:8080/DBServlet/search");
+        URL myURL = new URL("https://mil-servlet.herokuapp.com/img");
+
         HttpURLConnection conn = (HttpURLConnection) myURL.openConnection();
 
         // Set up the header
@@ -131,10 +95,6 @@ public class Client {
         }
 
         // Read the body of the response
-        InputStream file_stream=conn.getInputStream();
-        if (file_stream!=null) {
-            return file_stream;
-        }
-        return null;
+        return conn.getInputStream();
     }
 }
