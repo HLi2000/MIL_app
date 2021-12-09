@@ -8,7 +8,6 @@ public class Main {
         String[] modality_a={"MRI","Xray"};
         String[] region_a={};
         String patient_name_a="A A";
-
         SearchInfo searchInfo=new SearchInfo(modality_a,region_a,patient_name_a);
 
         Client cl=new Client();
