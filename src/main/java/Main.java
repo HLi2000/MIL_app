@@ -5,9 +5,9 @@ import java.io.InputStream;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        String[] modality_a={"MRI","Xray"};
-        String[] region_a={};
-        String patient_name_a="A A";
+        String[] modality_a={"CT"};
+        String[] region_a={"Head"};
+        String patient_name_a="";
         SearchInfo searchInfo=new SearchInfo(modality_a,region_a,patient_name_a);
 
         Client cl=new Client();
@@ -33,7 +33,7 @@ public class Main {
 
         //click actionListener should set img_selected
         Img img_selected=new Img();
-        img_selected.setFile_name("2.dcm");
+        img_selected.setFile_name("ct head 2.dcm");
         InputStream img_stream=cl.getImg(img_selected);
 
         //for test
