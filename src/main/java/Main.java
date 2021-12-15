@@ -5,10 +5,13 @@ import java.io.InputStream;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        String[] modality_a={"MRI","Xray"};
+        String[] modality_a={""};
         String[] region_a={};
-        String patient_name_a="A A";
-        SearchInfo searchInfo=new SearchInfo(modality_a,region_a,patient_name_a);
+        String patient_name=" peteR  ";
+
+        patient_name=patient_name.trim();
+        String patient_name_cap = patient_name.substring(0, 1).toUpperCase() + patient_name.substring(1).toLowerCase();
+        SearchInfo searchInfo=new SearchInfo(modality_a,region_a,patient_name_cap);
 
         Client cl=new Client();
 
@@ -33,7 +36,7 @@ public class Main {
 
         //click actionListener should set img_selected
         Img img_selected=new Img();
-        img_selected.setFile_name("2.dcm");
+        img_selected.setFile_name("ct head 1.dcm");
         InputStream img_stream=cl.getImg(img_selected);
 
         //for test
