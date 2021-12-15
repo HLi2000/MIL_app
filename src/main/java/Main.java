@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         String[] modality_a={""};
         String[] region_a={};
-        String patient_name=" peteR  ";
+        String patient_name=" peteR ";
 
         patient_name=patient_name.trim();
         String patient_name_cap = patient_name.substring(0, 1).toUpperCase() + patient_name.substring(1).toLowerCase();
