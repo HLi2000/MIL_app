@@ -5,13 +5,14 @@ import java.io.InputStream;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        String[] modality_a={""};
-        String[] region_a={};
+        String[] modality_a={"CT"};
+        String[] region_a={"Arm"};
         String patient_name=" peteR ";
 
         patient_name=patient_name.trim();
         String patient_name_cap = patient_name.substring(0, 1).toUpperCase() + patient_name.substring(1).toLowerCase();
-        SearchInfo searchInfo=new SearchInfo(modality_a,region_a,patient_name_cap);
+        //SearchInfo searchInfo=new SearchInfo(modality_a,region_a,patient_name_cap);
+        SearchInfo searchInfo=new SearchInfo(modality_a,region_a,"");
 
         Client cl=new Client();
 
