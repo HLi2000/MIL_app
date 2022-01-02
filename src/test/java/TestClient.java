@@ -4,6 +4,12 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Test the Client with different input cases of search
+ *
+ * downloading functions are not fully tested because they require image files
+ */
+
 public class TestClient {
     @Test
     public void TestSearch1() throws Exception {
