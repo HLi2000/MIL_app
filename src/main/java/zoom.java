@@ -8,17 +8,18 @@ import javax.imageio.stream.ImageInputStream;
 import javax.swing.*;
 
 public class zoom {
-    private String modality = "CT";
-    private String part = "Arm";
-    private String patientname = "Tom";
+    //private String modality;
+    //private String part;
+    //private String patientname;
+    private String fileName;
+    //private JFrame zoom = new JFrame("Modality:"+modality+"   "+"Part:"+part+"   "+"Patient name:"+patientname);
 
-    private JFrame zoom = new JFrame("Modality:"+modality+"   "+"Part:"+part+"   "+"Patient name:"+patientname);
     //private ImageIcon logo = new ImageIcon("D:/Year_3/programming3/group_project/image/logo_w.png");
     //private ImageIcon image = new ImageIcon("image/b.jpg");
     //private JLabel image_label = new JLabel(image);
 
     //private JLabel z_image = new JLabel(new ImageIcon("D:/Year_3/programming3/group_project/UI/material/naughty_test.jpg"));
-    private Container zoom_c = zoom.getContentPane();
+
 
     int ratio;
     int flag = 0;
@@ -39,16 +40,21 @@ public class zoom {
     //int width_n;
     //int height_n;
 
-    public zoom(Image image) throws Exception {
+    public zoom(Image image, String file_name) throws Exception {
         //zoom.setBounds(20,20,1000,800);
+        fileName = file_name;
+        JFrame zoom = new JFrame(fileName);
+        Container zoom_c = zoom.getContentPane();
+
         zoom.setLayout(new BorderLayout());
         zoom.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         zoom.setVisible(true);
-        init(image);
-
+        JPanel imagepanel = init(image);
+        zoom.add(imagepanel);
+        zoom.pack();
     }
 
-    public void init(Image image) throws Exception {
+    public JPanel init(Image image) throws Exception {
         int w = image.getWidth(null)*10;
         int h = image.getHeight(null)*10;
         Image bImage = image.getScaledInstance(w, h, Image.SCALE_DEFAULT);
@@ -65,9 +71,8 @@ public class zoom {
         //logopanel.setBackground(panel_color);
         //logo_label.setBounds(0, 0, 400, 130);
         imagepanel.add(label);
-        zoom.add(imagepanel);
 
-        zoom.pack();
+        return imagepanel;
         //zoom.MAXIMIZED_BOTH;
 
     }
