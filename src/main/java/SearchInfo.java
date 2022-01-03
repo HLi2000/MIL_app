@@ -1,12 +1,5 @@
 import java.io.Serializable;
 
-/**
- * The SearchInfo is used to store search keywords
- *
- * @author  Hao Li
- * @since   2021-12-05
- */
-
 public class SearchInfo implements Serializable {
     private String[] modality_a;
     private String[] region_a;
@@ -17,6 +10,7 @@ public class SearchInfo implements Serializable {
         this.region_a =region_a;
         this.patient_name =patient_name;
     }
+
 
     public String[] getModality_a() {
         return modality_a;

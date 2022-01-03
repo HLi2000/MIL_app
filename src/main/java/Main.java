@@ -4,15 +4,20 @@ import java.awt.*;
 import java.io.InputStream;
 
 public class Main {
+    //public static int flag = 0;
     public static void main(String[] args) throws Exception {
-        String[] modality_a={"CT"};
-        String[] region_a={"Arm"};
-        String patient_name=" peteR ";
+
+        login_full l = new login_full();
+
+/*
+        //search s =new search();
+        String[] modality_a= s.return_modality();
+        String[] region_a=s.return_region();
+        String patient_name=s.return_patient_name();
 
         patient_name=patient_name.trim();
         String patient_name_cap = patient_name.substring(0, 1).toUpperCase() + patient_name.substring(1).toLowerCase();
-        //SearchInfo searchInfo=new SearchInfo(modality_a,region_a,patient_name_cap);
-        SearchInfo searchInfo=new SearchInfo(modality_a,region_a,"");
+        SearchInfo searchInfo=new SearchInfo(modality_a,region_a,patient_name_cap);
 
         Client cl=new Client();
 
@@ -25,6 +30,8 @@ public class Main {
         }
         for (Img img : img_a) {
             System.out.println(img.getFile_name());
+            flag++;
+            System.out.println(flag);
 
             //for test
             Image image = ImageIO.read(img.getThumbnail());
@@ -47,5 +54,8 @@ public class Main {
         frame.getContentPane().add(label, BorderLayout.CENTER);
         frame.pack();
         frame.setVisible(true);
+
+    }
+*/
     }
 }

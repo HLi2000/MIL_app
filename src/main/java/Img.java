@@ -1,13 +1,6 @@
 import java.io.InputStream;
 import java.io.Serializable;
 
-/**
- * The Img is used to store image info plus its thumbnail
- *
- * @author  Hao Li
- * @since   2021-12-05
- */
-
 public class Img implements Serializable {
     private int id=0;
     private String modality="";
