@@ -12,7 +12,7 @@ public class login_full {
     public JPasswordField password = new JPasswordField();
     public JButton confirmbtn = new JButton("confirm");
     public JButton cancelbtn = new JButton("clear");
-    private ImageIcon logo = new ImageIcon("image/a.png");
+    private ImageIcon logo = new ImageIcon("image/whiteLogo.png");
     private JLabel logo_label = new JLabel(logo);
     public boolean login_status = false;
     Color text_color = new Color(181, 181, 181);
@@ -22,7 +22,8 @@ public class login_full {
 
 
     public login_full() {
-        this.jFrame.setBounds(600, 200, 400, 400);
+        this.jFrame.setBounds(600, 200, 350, 400);
+        jFrame.setResizable(false);
         c.setLayout(null);
         this.jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         init();
@@ -33,34 +34,34 @@ public class login_full {
     public void init() {
 
         JPanel logopanel = new JPanel();
-        logopanel.setBounds(0, 0, 400, 130);
+        logopanel.setBounds(0, 0, 350, 130);
         logopanel.setBackground(panel_color);
-        logo_label.setBounds(0, 0, 400, 130);
+        logo_label.setBounds(0, 0, 350, 130);
         logopanel.add(logo_label);
         jFrame.add(logopanel);
 
 
-        /*输入部分--Center*/
+        /* Type Center*/
         JPanel fieldPanel = new JPanel();
-        fieldPanel.setBounds(0, 130, 400, 270);
+        fieldPanel.setBounds(0, 130, 350, 270);
         fieldPanel.setBackground(panel_color);
         fieldPanel.setLayout(null);
-        a1.setBounds(60, 30, 100, 20);
-        a2.setBounds(60, 60, 100, 20);
+        a1.setBounds(40, 45, 100, 20);
+        a2.setBounds(40, 75, 100, 20);
         a1.setFont(f_1);
         a2.setFont(f_1);
         a1.setForeground(text_color);
         a2.setForeground(text_color);
         fieldPanel.add(a1);
         fieldPanel.add(a2);
-        username.setBounds(150, 30, 150, 25);
-        password.setBounds(150, 60, 150, 25);
+        username.setBounds(110, 45, 175, 25);
+        password.setBounds(110, 75, 175, 25);
         fieldPanel.add(username);
         fieldPanel.add(password);
         jFrame.add(fieldPanel);
 
-        confirmbtn.setBounds(100, 190, 75, 25);
-        cancelbtn.setBounds(210, 190, 75, 25);
+        confirmbtn.setBounds(75, 190, 75, 25);
+        cancelbtn.setBounds(190, 190, 75, 25);
         fieldPanel.add(confirmbtn);
         fieldPanel.add(cancelbtn);
         jFrame.add(fieldPanel);
