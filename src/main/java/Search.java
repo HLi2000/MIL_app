@@ -7,8 +7,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 
-
-
 public class Search /*extends JFrame*/{
     //Search s = new Search();
     //Boolean status = false;
@@ -348,28 +346,16 @@ public class Search /*extends JFrame*/{
                     //JFrame frame = new JFrame();
                     ImageIcon imageIcon = new ImageIcon(image);
                     JLabel label = new JLabel(imageIcon);
-                    //public String name(JLabel l){
-                    //    String title = label.getText();
-                    //  return title;
-                    //}
                     String file_name = img.getFile_name();
                     label.setText(file_name);
                     //label.setBounds(200, 600, 1000, 1000);
                     //frame.getContentPane().add(label, BorderLayout.CENTER);
                     display.add(label);
-                    //frame.pack();
-                    //frame.setVisible(true);
                     label.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
                             super.mouseClicked(e);
 
-                            //ImageIcon image = new ImageIcon("image/b.jpg");
-                            //JLabel image_label = new JLabel(image);
-
-                            //String img_selected=img;
-                            //img_selected.setFile_name("ct head 1.dcm");
-                            //Client cl = new Client();
                             try {
                                 InputStream img_stream=cl.getImg(img);
                                 Image image = ImageIO.read(img_stream);
