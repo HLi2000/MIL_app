@@ -1,7 +1,10 @@
+import UI.Login;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.InputStream;
+
 
 public class Main {
     //public static int flag = 0;
@@ -19,7 +22,7 @@ public class Main {
             System.out.println(e);
         }
 
-        login_full l = new login_full();
+        Login l = new Login();
 
     }
 }

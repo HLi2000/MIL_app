@@ -1,3 +1,9 @@
+package UI;
+
+import imgDB.Client;
+import imgDB.Img;
+import imgDB.SearchInfo;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -6,8 +12,7 @@ import java.util.Arrays;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-
-public class Search {
+public class Search extends JFrame{
     Boolean light = false;
     Boolean MRI = false;
     Boolean CT = false;
@@ -17,35 +22,30 @@ public class Search {
 
     public static int flag = 0;
 
-    public JFrame search_frame = new JFrame("Search");
-    private Container search_c = search_frame.getContentPane();
-    private JButton confirm = new JButton("confirm");
-    public JButton mode = new JButton("mode");
+    //public JFrame search_frame = new JFrame("Search");
+    private Container search_c = getContentPane();
+    JButton confirm = new JButton("confirm");
+    JButton mode = new JButton("mode");
 
-
-    private JLabel region = new JLabel("Region");
+    JLabel region = new JLabel("Region");
     String[] choice_r = new String[]{"All", "Heart", "Arm", "Body", "Head", "Leg"};
-    private JComboBox r_choice = new JComboBox(choice_r);
-    private String[] region_choice = new String[5];
+    JComboBox r_choice = new JComboBox(choice_r);
+    String[] region_choice = new String[5];
 
-
-
-    private JLabel modality = new JLabel("Modality:");
+    JLabel modality = new JLabel("Modality:");
     JCheckBox choice_MRI = new JCheckBox("MRI");
     JCheckBox choice_CT = new JCheckBox("CT");
     JCheckBox choice_US = new JCheckBox("Ultrasound");
     JCheckBox choice_XRay = new JCheckBox("XRay");
     JCheckBox choice_ECG = new JCheckBox("ECG");
-    private String[] modality_choice = new String[5];
+    String[] modality_choice = new String[5];
 
-    private JLabel patient = new JLabel("Patient Name:");
+    JLabel patient = new JLabel("Patient Name:");
     private JTextField name = new JTextField();
     private String patient_name =new String();
     private String patient_name_cap = new String();
 
-
-
-    private JPanel line = new JPanel();
+    JPanel line = new JPanel();
     private JPanel display = new JPanel();
     Color line_color = new Color(190, 190, 190);
     Color fieldpanel_color = new Color(54, 54, 54);
@@ -54,20 +54,17 @@ public class Search {
     Font f = new Font(Font.DIALOG, Font.BOLD, 16);
     Color lightmode = new Color(255, 255, 255);
 
-
     public Search() {
+        super("Search");
+        setBounds(250, 110, 1000, 800);
 
-        search_frame.setBounds(250, 110, 1000, 800);
         search_c.setLayout(null);
-        search_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        search_frame.setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
         init();
-
     }
 
-
     public void init() {
-
         JPanel fieldPanel = new JPanel();
         fieldPanel.setBackground(fieldpanel_color);
         fieldPanel.setBounds(0, 0, 295, 700);
@@ -105,19 +102,17 @@ public class Search {
         fieldPanel.add(choice_XRay);
         fieldPanel.add(choice_ECG);
         fieldPanel.add(name);
-        search_frame.add(fieldPanel);
-
+        add(fieldPanel);
 
         //display panel
         display.setBounds(305, 0, 695, 800);
         display.setBackground(displaypanel_color);
-        search_frame.add(display);
-
+        add(display);
 
         //line panel
         line.setBounds(301, 0, 5, 800);
         line.setBackground(line_color);
-        search_frame.add(line);
+        add(line);
 
         //confirm button
         JPanel buttonPanel = new JPanel();
@@ -126,8 +121,18 @@ public class Search {
         confirm.setBounds(100, 30, 100, 40);
         buttonPanel.add(confirm);
         buttonPanel.add(mode);
-        search_frame.add(buttonPanel);
+        add(buttonPanel);
+/*
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                super.componentResized(e);
+                display.getWidth();
+                display.getHeight();
+            }
+        });
 
+ */
         mode.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -291,13 +296,14 @@ public class Search {
             }
         });
 
-
-
         int confirm_flag = 0;
         confirm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 display.removeAll();
+                display.revalidate();
+                display.repaint();
+
                 patient_name = name.getText();
                 try {
                     patient_name = patient_name.trim();
@@ -306,8 +312,6 @@ public class Search {
                 } catch (Exception e) {
                     patient_name_cap = "";
                 }
-
-
 
                 System.out.println("region_choice " + Arrays.toString(region_choice));
                 System.out.println("modality_choice " + Arrays.toString(modality_choice));
@@ -324,7 +328,6 @@ public class Search {
                     e.printStackTrace();
                     img_a = new Img[]{};
                 }
-
 
                 flag = 0;
                 for (Img img : img_a) {
@@ -345,7 +348,7 @@ public class Search {
                     String file_name = img.getFile_name();
                     label.setText(file_name);
                     display.add(label);
-                    display.revalidate();
+                    //display.revalidate();
 
                     label.addMouseListener(new MouseAdapter() {
                         @Override
@@ -355,18 +358,14 @@ public class Search {
                             try {
                                 InputStream img_stream=cl.getImg(img);
                                 Image image = ImageIO.read(img_stream);
-                                zoom z = new zoom(image, file_name);
+                                Zoom z = new Zoom(image, file_name);
                             } catch (Exception ex) {
                                 ex.printStackTrace();
                             }
-
                         }
                     });
                 }
-
-
             }
         });
-
     }
 }

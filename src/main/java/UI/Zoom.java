@@ -1,3 +1,5 @@
+package UI;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -7,7 +9,7 @@ import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
 import javax.swing.*;
 
-public class zoom {
+public class Zoom {
     //private String modality;
     //private String part;
     //private String patientname;
@@ -40,10 +42,11 @@ public class zoom {
     //int width_n;
     //int height_n;
 
-    public zoom(Image image, String file_name) throws Exception {
+    public Zoom(Image image, String file_name) throws Exception {
         //zoom.setBounds(20,20,1000,800);
         fileName = file_name;
         JFrame zoom = new JFrame(fileName);
+        zoom.setLocation(500, 20);
         Container zoom_c = zoom.getContentPane();
 
         zoom.setLayout(new BorderLayout());

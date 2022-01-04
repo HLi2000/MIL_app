@@ -1,3 +1,5 @@
+package imgDB;
+
 import java.io.Serializable;
 
 public class SearchInfo implements Serializable {
