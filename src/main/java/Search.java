@@ -22,14 +22,14 @@ public class Search {
     private JButton confirm = new JButton("confirm");
     public JButton mode = new JButton("mode");
 
-
+    //region panel components
     private JLabel region = new JLabel("Region");
     String[] choice_r = new String[]{"All", "Heart", "Arm", "Body", "Head", "Leg"};
     private JComboBox r_choice = new JComboBox(choice_r);
     private String[] region_choice = new String[5];
 
 
-
+    //modality panel components
     private JLabel modality = new JLabel("Modality:");
     JCheckBox choice_MRI = new JCheckBox("MRI");
     JCheckBox choice_CT = new JCheckBox("CT");
@@ -38,21 +38,31 @@ public class Search {
     JCheckBox choice_ECG = new JCheckBox("ECG");
     private String[] modality_choice = new String[5];
 
+    //patient name panel components
     private JLabel patient = new JLabel("Patient Name:");
     private JTextField name = new JTextField();
     private String patient_name =new String();
     private String patient_name_cap = new String();
 
-
+    //hello panel
+    private JPanel hello_panel = new JPanel();
+    private  JLabel hello = new JLabel("Hello,");
+    //private JLabel hello_user = new JLabel();
 
     private JPanel line = new JPanel();
+
     private JPanel display = new JPanel();
+
+    //colors and fronts
     Color line_color = new Color(190, 190, 190);
     Color fieldpanel_color = new Color(54, 54, 54);
     Color text_color = new Color(181, 181, 181);
     Color displaypanel_color = new Color(130, 130, 130);
-    Font f = new Font(Font.DIALOG, Font.BOLD, 16);
+    Color hello_color = new Color(179,196,222);
     Color lightmode = new Color(255, 255, 255);
+    Font f = new Font(Font.DIALOG, Font.BOLD, 16);
+    Font hello_f  = new Font(Font.DIALOG, Font.BOLD, 23);
+
 
 
     public Search() {
@@ -60,6 +70,7 @@ public class Search {
         search_frame.setBounds(250, 110, 1000, 800);
         search_c.setLayout(null);
         search_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        search_frame.setResizable(false);
         search_frame.setVisible(true);
         init();
 
@@ -68,28 +79,31 @@ public class Search {
 
     public void init() {
 
+        //search panel with components
         JPanel fieldPanel = new JPanel();
         fieldPanel.setBackground(fieldpanel_color);
         fieldPanel.setBounds(0, 0, 295, 700);
-        //search_frame.setResizable(false);
         fieldPanel.setLayout(null);
-        region.setBounds(20, 25, 70, 50);
-        modality.setBounds(20, 100, 100, 20);
-        patient.setBounds(20, 190, 130, 50);
-        name.setBounds(20, 230, 200, 30);
+        hello.setBounds(20,0,200,50);
+        region.setBounds(20, 75, 70, 50);
+        modality.setBounds(20, 150, 100, 20);
+        patient.setBounds(20, 240, 130, 50);
+        name.setBounds(20, 280, 200, 30);
         region.setFont(f);
         modality.setFont(f);
         patient.setFont(f);
+        hello.setFont(hello_f);
         region.setForeground(text_color);
         modality.setForeground(text_color);
         patient.setForeground(text_color);
+        hello.setForeground(hello_color);
         r_choice.setForeground(text_color);
-        r_choice.setBounds(100, 30, 150, 40);
-        choice_MRI.setBounds(20, 130, 55, 20);
-        choice_CT.setBounds(90, 130, 50, 20);
-        choice_US.setBounds(150, 130, 105, 20);
-        choice_XRay.setBounds(20, 160, 68, 20);
-        choice_ECG.setBounds(90, 160, 60, 20);
+        r_choice.setBounds(100, 80, 150, 40);
+        choice_MRI.setBounds(20, 180, 55, 20);
+        choice_CT.setBounds(90, 180, 50, 20);
+        choice_US.setBounds(150, 180, 105, 20);
+        choice_XRay.setBounds(20, 210, 68, 20);
+        choice_ECG.setBounds(90, 210, 60, 20);
         choice_MRI.setForeground(text_color);
         choice_CT.setForeground(text_color);
         choice_US.setForeground(text_color);
@@ -98,6 +112,7 @@ public class Search {
         fieldPanel.add(region);
         fieldPanel.add(modality);
         fieldPanel.add(patient);
+        fieldPanel.add(hello);
         fieldPanel.add(r_choice);
         fieldPanel.add(choice_MRI);
         fieldPanel.add(choice_CT);
