@@ -7,10 +7,9 @@ import java.io.InputStream;
 
 
 public class Main {
-    //public static int flag = 0;
     public static void main(String[] args) throws Exception {
 
-
+        //skin
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
