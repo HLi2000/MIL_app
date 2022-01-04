@@ -1,4 +1,4 @@
-package UI;
+package ui;
 
 import imgDB.Client;
 import imgDB.Img;
