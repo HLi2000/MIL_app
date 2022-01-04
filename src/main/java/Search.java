@@ -71,12 +71,7 @@ public class Search /*extends JFrame*/{
 
 
     public void init() {
-        /*
-        patient_name = name.getText();
-        patient_name = patient_name.trim();
-        String patient_name_cap = patient_name.substring(0, 1).toUpperCase() + patient_name.substring(1).toLowerCase();
-        System.out.println("patientname:"+patient_name_cap);
-*/
+
         JPanel fieldPanel = new JPanel();
         fieldPanel.setBackground(fieldpanel_color);
         fieldPanel.setBounds(0, 0, 295, 700);
@@ -137,10 +132,6 @@ public class Search /*extends JFrame*/{
         buttonPanel.add(mode);
         search_frame.add(buttonPanel);
 
-
-        //confirm.addActionListener(new ActionListener() {
-        //@Override
-        //public void actionPerformed(ActionEvent ae) {
         mode.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -195,10 +186,6 @@ public class Search /*extends JFrame*/{
                         region_choice[2]="Arm";
                         region_choice[3]="Body";
                         region_choice[4]="Leg";
-                        //region_choice = ;
-                        //region_choice = {"Brain", "Heart", "Arm", "Chest", "Neck"};
-                        //String[] region_choice = {};
-                        //System.out.println("r_choice1 " + region_choice[0]);
                         System.out.println("r_choice1 " + r_choice.getSelectedItem().toString());
                     } else if (r_choice.getSelectedItem().toString() == "Head") {
                         region_choice[0] = "Head";
@@ -215,7 +202,6 @@ public class Search /*extends JFrame*/{
                         region_choice[4]= null;
                         System.out.println("r_choice3 " + region_choice[0]);
                     } else if (r_choice.getSelectedItem().toString() == "Arm") {
-                        //region_choice = null;
                         region_choice[0] = "Arm";
                         region_choice[1]= null;
                         region_choice[2]= null;
@@ -223,7 +209,6 @@ public class Search /*extends JFrame*/{
                         region_choice[4]= null;
                         System.out.println("r_choice4 " + region_choice[0]);
                     } else if (r_choice.getSelectedItem().toString() == "Body") {
-                        //region_choice = null;
                         region_choice[0] = "Body";
                         region_choice[1]= null;
                         region_choice[2]= null;
@@ -231,7 +216,6 @@ public class Search /*extends JFrame*/{
                         region_choice[4]= null;
                         System.out.println("r_choice5 " + region_choice[0]);
                     } else if (r_choice.getSelectedItem().toString() == "Leg") {
-                        //region_choice = null;
                         region_choice[0] = "Leg";
                         region_choice[1]= null;
                         region_choice[2]= null;
@@ -311,37 +295,7 @@ public class Search /*extends JFrame*/{
             }
         });
 
-        /*
-        boolean choice_mri_status = choice_MRI.isSelected();
-        if (choice_mri_status) {
-            modality_choice[0] = "MRI";
-            System.out.println("modality_ "+modality_choice[0]);
-        } else {
-            modality_choice[0] = null;
-        }
 
-        boolean choice_CT_status = choice_CT.isSelected();
-        if (choice_CT_status) {
-            modality_choice[1] = "CT";
-            System.out.println("modality_ "+modality_choice[1]);
-        } else {
-            modality_choice[1] = null;
-        }
-
-        boolean choice_US_status = choice_US.isSelected();
-        if (choice_US_status) {
-            modality_choice[2] = "US";
-        } else {
-            modality_choice[2] = null;
-        }
-
-        boolean choice_xray_status = choice_XRay.isSelected();
-        if (choice_xray_status) {
-            modality_choice[3] = "XRay";
-        } else {
-            modality_choice[3] = null;
-        }
-        */
 
         confirm.addActionListener(new ActionListener() {
             @Override
@@ -357,18 +311,7 @@ public class Search /*extends JFrame*/{
                     patient_name_cap = "";
                 }
 
-                //try {
-                //display.removeAll();
-                //patient_name = name.getText();
-                //if(patient_name==""){
-                //patient_name_cap = "";
-                //}else {
-                //patient_name = name.getText();
-                //patient_name = patient_name.trim();
-                //patient_name_cap = patient_name.substring(0, 1).toUpperCase() + patient_name.substring(1).toLowerCase();
 
-
-                //patient_name_cap = null;
                 System.out.println("region_choice " + Arrays.toString(region_choice));
                 System.out.println("modality_choice " + Arrays.toString(modality_choice));
                 System.out.println("patient_name_cap " + patient_name_cap);
@@ -442,87 +385,6 @@ public class Search /*extends JFrame*/{
 
             }
         });
-        /*
-        if (confirm.getModel().isPressed()) {
-            patient_name = name.getText();
-            patient_name = patient_name.trim();
-            String patient_name_cap = patient_name.substring(0, 1).toUpperCase() + patient_name.substring(1).toLowerCase();
-
-            System.out.println(Arrays.toString(region_choice));
-            System.out.println(Arrays.toString(modality_choice));
-
-            SearchInfo searchInfo = new SearchInfo(modality_choice, region_choice, patient_name_cap);
-
-            Client cl = new Client();
-
-            Img[] img_a;
-
-            try {
-                img_a = cl.search(searchInfo);
-            } catch (Exception e) {
-                e.printStackTrace();
-                img_a = new Img[]{};
-            }
-            for (Img img : img_a) {
-                System.out.println("img.getFile_name() " + img.getFile_name());
-                flag++;
-                System.out.println("flag " + flag);
-                //break;
-            }
-            /*
-            //for test
-            Image image = ImageIO.read(img.getThumbnail());
-            JFrame frame = new JFrame();
-            JLabel label = new JLabel(new ImageIcon(image));
-            frame.getContentPane().add(label, BorderLayout.CENTER);
-            frame.pack();
-            frame.setVisible(true);
-        }
-
-        //click actionListener should set img_selected
-        Img img_selected=new Img();
-        img_selected.setFile_name("ct head 1.dcm");
-        InputStream img_stream=cl.getImg(img_selected);
-
-        status = true;
-        region_choice = null;
-        modality_choice = null;
-    }
-    /*
-    public String[] return_modality(){
-        return modality_choice;
-}
-
-    public String[] return_region() {
-        return region_choice;
-    }
-
-    public String return_patient_name(){
-        return patient_name;
-    }
-
-    public void display(){
-        Main a = new Main();
-        int image_number =a.flag;
-
-    }
-
-
-/*
-    public static void main (String[]args){
-        try {
-                for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(info.getName())) {
-                        javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                        break;
-                    }
-                }
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-            new search();
-        }
-        */
 
     }
 }
