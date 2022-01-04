@@ -9,15 +9,15 @@ import javax.swing.*;
 
 
 
-public class search {
-
-    Boolean status = false;
+public class Search /*extends JFrame*/{
+    //Search s = new Search();
+    //Boolean status = false;
     Boolean light = false;
     Boolean MRI = false;
     Boolean CT = false;
     Boolean US = false;
     Boolean XRay = false;
-    //Boolean ECG = false;
+    Boolean ECG = false;
 
     public static int flag = 0;
 
@@ -39,8 +39,8 @@ public class search {
     JCheckBox choice_CT = new JCheckBox("CT");
     JCheckBox choice_US = new JCheckBox("Ultrasound");
     JCheckBox choice_XRay = new JCheckBox("XRay");
-    //JCheckBox choice_ECG = new JCheckBox("ECG");
-    private String[] modality_choice = new String[4];
+    JCheckBox choice_ECG = new JCheckBox("ECG");
+    private String[] modality_choice = new String[5];
 
     private JLabel patient = new JLabel("Patient Name:");
     private JTextField name = new JTextField();
@@ -59,7 +59,7 @@ public class search {
     Color lightmode = new Color(255, 255, 255);
 
 
-    public search() {
+    public Search() {
 
         search_frame.setBounds(250, 110, 1000, 800);
         search_c.setLayout(null);
@@ -80,6 +80,7 @@ public class search {
         JPanel fieldPanel = new JPanel();
         fieldPanel.setBackground(fieldpanel_color);
         fieldPanel.setBounds(0, 0, 295, 700);
+        //search_frame.setResizable(false);
         fieldPanel.setLayout(null);
         region.setBounds(20, 25, 70, 50);
         modality.setBounds(20, 100, 100, 20);
@@ -97,12 +98,12 @@ public class search {
         choice_CT.setBounds(90, 130, 50, 20);
         choice_US.setBounds(150, 130, 105, 20);
         choice_XRay.setBounds(20, 160, 68, 20);
-        //choice_ECG.setBounds(90, 160, 60, 20);
+        choice_ECG.setBounds(90, 160, 60, 20);
         choice_MRI.setForeground(text_color);
         choice_CT.setForeground(text_color);
         choice_US.setForeground(text_color);
         choice_XRay.setForeground(text_color);
-        //choice_ECG.setForeground(text_color);
+        choice_ECG.setForeground(text_color);
         fieldPanel.add(region);
         fieldPanel.add(modality);
         fieldPanel.add(patient);
@@ -111,7 +112,7 @@ public class search {
         fieldPanel.add(choice_CT);
         fieldPanel.add(choice_US);
         fieldPanel.add(choice_XRay);
-        //fieldPanel.add(choice_ECG);
+        fieldPanel.add(choice_ECG);
         fieldPanel.add(name);
         search_frame.add(fieldPanel);
 
@@ -155,8 +156,8 @@ public class search {
                     choice_CT.setForeground(fieldpanel_color);
                     choice_US.setForeground(fieldpanel_color);
                     choice_XRay.setForeground(fieldpanel_color);
-                    //choice_ECG.setForeground(fieldpanel_color);
-                    //line.setBackground(fieldpanel_color);
+                    choice_ECG.setForeground(fieldpanel_color);
+                    line.setBackground(fieldpanel_color);
 
                     light = true;
                 } else {
@@ -171,8 +172,8 @@ public class search {
                     choice_CT.setForeground(text_color);
                     choice_US.setForeground(text_color);
                     choice_XRay.setForeground(text_color);
-                    //choice_ECG.setForeground(text_color);
-                    //line.setBackground(line_color);
+                    choice_ECG.setForeground(text_color);
+                    line.setBackground(line_color);
                     light = false;
                 }
             }
@@ -295,7 +296,7 @@ public class search {
                 }
             }
         });
-/*
+
         choice_ECG.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent itemEvent) {
@@ -309,7 +310,7 @@ public class search {
                 }
             }
         });
-*/
+
         /*
         boolean choice_mri_status = choice_MRI.isSelected();
         if (choice_mri_status) {
@@ -408,7 +409,8 @@ public class search {
                     //    String title = label.getText();
                     //  return title;
                     //}
-                    label.setText(img.getFile_name());
+                    String file_name = img.getFile_name();
+                    label.setText(file_name);
                     //label.setBounds(200, 600, 1000, 1000);
                     //frame.getContentPane().add(label, BorderLayout.CENTER);
                     display.add(label);
@@ -428,7 +430,7 @@ public class search {
                             try {
                                 InputStream img_stream=cl.getImg(img);
                                 Image image = ImageIO.read(img_stream);
-                                zoom z = new zoom(image);
+                                zoom z = new zoom(image, file_name);
                             } catch (Exception ex) {
                                 ex.printStackTrace();
                             }

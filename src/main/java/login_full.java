@@ -87,7 +87,7 @@ public class login_full {
                 if (username.getText().equals("123") && pa_s.equals("123")) {
                     login_status = true;
                     jFrame.setVisible(false);
-                    search s = new search();
+                    Search s = new Search();
                 } else {
                     JPanel messagepanel = new JPanel();
                     messagepanel.setBounds(0, 250, 400, 50);
