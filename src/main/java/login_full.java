@@ -15,6 +15,8 @@ public class login_full {
     private ImageIcon logo = new ImageIcon("image/whiteLogo.png");
     private JLabel logo_label = new JLabel(logo);
     public boolean login_status = false;
+
+    //basic properties
     Color text_color = new Color(181, 181, 181);
     Color panel_color = new Color(54, 54, 54);
     Color message_color = new Color(238, 130, 130);
@@ -33,6 +35,8 @@ public class login_full {
 
     public void init() {
 
+
+        //logo panel
         JPanel logopanel = new JPanel();
         logopanel.setBounds(0, 0, 350, 130);
         logopanel.setBackground(panel_color);
@@ -84,16 +88,18 @@ public class login_full {
                 char[] pa = password.getPassword();
                 String pa_s = String.valueOf(pa);
 
+                //check username and password
                 if (username.getText().equals("123") && pa_s.equals("123")) {
                     login_status = true;
                     jFrame.setVisible(false);
                     Search s = new Search();
                 } else {
+                    //show the error message
                     JPanel messagepanel = new JPanel();
                     messagepanel.setBounds(0, 250, 400, 50);
                     messagepanel.setBackground(panel_color);
                     JLabel error_message = new JLabel("wrong username or password, please try again!");
-                    Font f = new Font(Font.DIALOG, Font.BOLD, 15);
+                    Font f = new Font(Font.DIALOG, Font.BOLD, 12);
                     error_message.setFont(f);
                     error_message.setForeground(message_color);
                     messagepanel.add(error_message);

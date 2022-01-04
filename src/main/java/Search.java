@@ -7,9 +7,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 
-public class Search /*extends JFrame*/{
-    //Search s = new Search();
-    //Boolean status = false;
+public class Search {
     Boolean light = false;
     Boolean MRI = false;
     Boolean CT = false;
@@ -295,12 +293,12 @@ public class Search /*extends JFrame*/{
 
 
 
+        int confirm_flag = 0;
         confirm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 display.removeAll();
                 patient_name = name.getText();
-                //System.out.println("patient_name"+patient_name);
                 try {
                     patient_name = patient_name.trim();
                     patient_name_cap = patient_name.substring(0, 1).toUpperCase() + patient_name.substring(1).toLowerCase();
@@ -310,13 +308,11 @@ public class Search /*extends JFrame*/{
                 }
 
 
+
                 System.out.println("region_choice " + Arrays.toString(region_choice));
                 System.out.println("modality_choice " + Arrays.toString(modality_choice));
                 System.out.println("patient_name_cap " + patient_name_cap);
-                //String[] region_choice = {};
-                //patient_name_cap = "peter";
                 SearchInfo searchInfo = new SearchInfo(modality_choice, region_choice, patient_name_cap);
-                //SearchInfo searchInfo = new SearchInfo(modality_a, region_a, patient_name_cap);
 
                 Client cl = new Client();
 
@@ -330,6 +326,7 @@ public class Search /*extends JFrame*/{
                 }
 
 
+                flag = 0;
                 for (Img img : img_a) {
                     System.out.println("img.getFile_name() " + img.getFile_name());
                     flag++;
@@ -343,14 +340,13 @@ public class Search /*extends JFrame*/{
                         e.printStackTrace();
                     }
 
-                    //JFrame frame = new JFrame();
                     ImageIcon imageIcon = new ImageIcon(image);
                     JLabel label = new JLabel(imageIcon);
                     String file_name = img.getFile_name();
                     label.setText(file_name);
-                    //label.setBounds(200, 600, 1000, 1000);
-                    //frame.getContentPane().add(label, BorderLayout.CENTER);
                     display.add(label);
+                    display.revalidate();
+
                     label.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
