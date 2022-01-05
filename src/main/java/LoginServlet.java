@@ -15,7 +15,7 @@ public class LoginServlet extends HttpServlet {
 
         String reqBody = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         Gson gson = new Gson();
-        User loginUser = gson.fromJson(reqBody,User.class);//user received from client
+        User loginUser = gson.fromJson(reqBody,User.class);//user received from client for login
         DBDao d1 = new DBDao();
         loginresult = d1.Login(loginUser);
 
@@ -30,7 +30,5 @@ public class LoginServlet extends HttpServlet {
         }
 
     }
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 
-    }
 }

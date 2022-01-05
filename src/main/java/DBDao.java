@@ -21,7 +21,7 @@ public class DBDao {
         try{
             connection = DBConn.getConnection();//connect to the database
             pstmt = (PreparedStatement) connection.prepareStatement(SQL);
-            pstmt.setInt(1,username);//replace the ? in sql by username and password
+            pstmt.setInt(1,username);//replace ? in SQL by username and password
             pstmt.setInt(2,password);
             Statement s = connection.createStatement();
             ResultSet rset = s.executeQuery(SQL);
@@ -46,6 +46,27 @@ public class DBDao {
     }
 
     public boolean Register(User user){
-        return true;
+        username = user.username;
+        password = user.password;
+        SQL = "insert ignore into xx (username,password) values(?,?)";//insert new user into the table
+        PreparedStatement pstmt = null;//used to execute sql statement with parameters
+        Connection connection = null;
+
+        try {
+            connection = DBConn.getConnection();//connect to the database
+            //to find if the registered user is already existed in the table
+            pstmt = (PreparedStatement) connection.prepareStatement(SQL);
+            pstmt.setInt(1, username);//replace ? in SQL by username and password
+            pstmt.setInt(2, password);
+            Statement s = connection.createStatement();
+            s.close();
+
+        }
+        catch (Exception e){
+            return false;
+        }
+
+
+        return true;//successfully registered
     }
 }
