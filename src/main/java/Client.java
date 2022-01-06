@@ -9,12 +9,12 @@ import java.nio.charset.StandardCharsets;
 
 public class Client {
 public void login(User user) throws Exception{
-    URL myURL = new URL("http://localhost:8080/Login_Servlet/login");
+    URL myURL = new URL("https://loginservlet1248.herokuapp.com/login");
     HttpURLConnection conn = (HttpURLConnection) myURL.openConnection();
     //transform user to gson format
-    User loginUser = new User();
+
     Gson gson = new Gson();
-    String jsonString = gson.toJson(loginUser);
+    String jsonString = gson.toJson(user);
     byte[] body = jsonString.getBytes(StandardCharsets.UTF_8);
     //set up the header
     conn.setRequestMethod("GET");
@@ -38,12 +38,12 @@ public void login(User user) throws Exception{
 }
 
 public void register(User user) throws Exception{
-    URL myURL = new URL("http://localhost:8080/Login_Servlet/register");
+    URL myURL = new URL("https://loginservlet1248.herokuapp.com/register");
     HttpURLConnection conn = (HttpURLConnection) myURL.openConnection();
     //transform user to gson format
-    User registerUser = new User();
+
     Gson gson = new Gson();
-    String jsonString = gson.toJson(registerUser);
+    String jsonString = gson.toJson(user);
     byte[] body = jsonString.getBytes(StandardCharsets.UTF_8);
     //set up the header
     conn.setRequestMethod("POST");
