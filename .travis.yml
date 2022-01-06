@@ -12,6 +12,6 @@ directories:
        - $HOME/.gradle/wrapper/
 deploy:
 provider: heroku
-api_key: 8f23b8c6-6f59-4fa5-b5f2-960721fb3bea
-app: simpleservelet1
+api_key: 8ba03629-aca7-4ea4-ac04-05feaeb71952
+app: Login-Servlet
 skip_cleanup: true

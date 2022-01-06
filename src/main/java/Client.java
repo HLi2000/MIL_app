@@ -18,16 +18,14 @@ public void login(User user) throws Exception{
     byte[] body = jsonString.getBytes(StandardCharsets.UTF_8);
     //set up the header
     conn.setRequestMethod("GET");
-    conn.setRequestProperty("Accept", "text/html");
-    conn.setRequestProperty("charset", "utf-8");
-    conn.setRequestProperty("Content-Length", Integer.toString(body.length));
+    conn.setRequestProperty("Accept", "application/json");
     conn.setDoOutput(true);
 //write the body of the login request
     try (OutputStream outputStream = conn.getOutputStream()) {
         outputStream.write(body, 0, body.length);
     }
 
-//
+
     BufferedReader bufferedReader = new BufferedReader(new
             InputStreamReader(conn.getInputStream(), "utf-8"));
     String inputLine;//responded text from servlet
@@ -49,9 +47,7 @@ public void register(User user) throws Exception{
     byte[] body = jsonString.getBytes(StandardCharsets.UTF_8);
     //set up the header
     conn.setRequestMethod("POST");
-    conn.setRequestProperty("Accept", "text/html");
-    conn.setRequestProperty("charset", "utf-8");
-    conn.setRequestProperty("Content-Length", Integer.toString(body.length));
+    conn.setRequestProperty("Accept", "application/json");
     conn.setDoOutput(true);
     //write the body of the register request
     try (OutputStream outputStream = conn.getOutputStream()) {
