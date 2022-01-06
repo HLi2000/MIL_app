@@ -13,5 +13,5 @@ directories:
 deploy:
 provider: heroku
 api_key: 8ba03629-aca7-4ea4-ac04-05feaeb71952
-app: Login-Servlet
+app: loginservlet1248
 skip_cleanup: true

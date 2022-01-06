@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar ./webapp-runner-9.0.24.1.jar ${WEBAPP_RUNNER_OPTS} --port $PORT ./build/libs/Login_servlet-1.0-SNAPSHOT.war
+web: java $JAVA_OPTS -jar ./webapp-runner-9.0.24.1.jar ${WEBAPP_RUNNER_OPTS} --port $PORT ./build/libs/Login_Servlet-1.0-SNAPSHOT.war
