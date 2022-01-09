@@ -77,6 +77,7 @@ public class Login extends JFrame{
         cancelbtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                /*clear the textfield after pressing 'clear' button*/
                 username.setText("");
                 password.setText("");
             }

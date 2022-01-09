@@ -21,7 +21,7 @@ public class Main {
             System.out.println(e);
         }
 
-        Login l = new Login();
+        new Login();
 
     }
 }

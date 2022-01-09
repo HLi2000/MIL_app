@@ -22,16 +22,19 @@ public class Search extends JFrame{
 
     public static int flag = 0;
 
-    //public JFrame search_frame = new JFrame("Search");
+    /* settings of basic components*/
     private Container search_c = getContentPane();
     JButton confirm = new JButton("confirm");
     JButton mode = new JButton("mode");
 
+
+    // Region
     JLabel region = new JLabel("Region");
     String[] choice_r = new String[]{"All", "Heart", "Arm", "Body", "Head", "Leg"};
     JComboBox r_choice = new JComboBox(choice_r);
     String[] region_choice = new String[5];
 
+    // Modality
     JLabel modality = new JLabel("Modality:");
     JCheckBox choice_MRI = new JCheckBox("MRI");
     JCheckBox choice_CT = new JCheckBox("CT");
@@ -40,6 +43,8 @@ public class Search extends JFrame{
     JCheckBox choice_ECG = new JCheckBox("ECG");
     String[] modality_choice = new String[5];
 
+
+    // Patient name
     JLabel patient = new JLabel("Patient Name:");
     private JTextField name = new JTextField();
     private String patient_name =new String();
@@ -47,6 +52,8 @@ public class Search extends JFrame{
 
     JPanel line = new JPanel();
     private JPanel display = new JPanel();
+
+    // Colors
     Color line_color = new Color(190, 190, 190);
     Color fieldpanel_color = new Color(54, 54, 54);
     Color text_color = new Color(181, 181, 181);
@@ -70,28 +77,35 @@ public class Search extends JFrame{
         fieldPanel.setBounds(0, 0, 295, 700);
         //search_frame.setResizable(false);
         fieldPanel.setLayout(null);
+        //set size of the components
         region.setBounds(20, 25, 70, 50);
         modality.setBounds(20, 100, 100, 20);
         patient.setBounds(20, 190, 130, 50);
         name.setBounds(20, 230, 200, 30);
-        region.setFont(f);
-        modality.setFont(f);
-        patient.setFont(f);
-        region.setForeground(text_color);
-        modality.setForeground(text_color);
-        patient.setForeground(text_color);
-        r_choice.setForeground(text_color);
         r_choice.setBounds(100, 30, 150, 40);
         choice_MRI.setBounds(20, 130, 55, 20);
         choice_CT.setBounds(90, 130, 50, 20);
         choice_US.setBounds(150, 130, 105, 20);
         choice_XRay.setBounds(20, 160, 68, 20);
         choice_ECG.setBounds(90, 160, 60, 20);
+
+        // set font
+        region.setFont(f);
+        modality.setFont(f);
+        patient.setFont(f);
+
+        //set color of text
+        region.setForeground(text_color);
+        modality.setForeground(text_color);
+        patient.setForeground(text_color);
+        r_choice.setForeground(text_color);
         choice_MRI.setForeground(text_color);
         choice_CT.setForeground(text_color);
         choice_US.setForeground(text_color);
         choice_XRay.setForeground(text_color);
         choice_ECG.setForeground(text_color);
+
+        // add components to the panel
         fieldPanel.add(region);
         fieldPanel.add(modality);
         fieldPanel.add(patient);
@@ -122,17 +136,9 @@ public class Search extends JFrame{
         buttonPanel.add(confirm);
         buttonPanel.add(mode);
         add(buttonPanel);
-/*
-        addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                super.componentResized(e);
-                display.getWidth();
-                display.getHeight();
-            }
-        });
 
- */
+
+        /* add listener to the 'mode' button and let user can choose background color of the search frame*/
         mode.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -170,7 +176,7 @@ public class Search extends JFrame{
                 }
             }
         });
-        //System.out.println("region choice " + region_choice);
+
         region_choice[0]="Head";
         region_choice[1]="Heart";
         region_choice[2]="Arm";
