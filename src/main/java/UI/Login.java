@@ -15,7 +15,7 @@ public class Login extends JFrame{
 
     JButton confirmbtn = new JButton("confirm");
     JButton cancelbtn = new JButton("clear");
-    ImageIcon logo = new ImageIcon("image/whiteLogo.png");
+    ImageIcon logo = new ImageIcon("img/whiteLogo.png");
     JLabel logo_label = new JLabel(logo);
     public boolean login_status = false;
 
