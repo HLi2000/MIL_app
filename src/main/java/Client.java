@@ -19,6 +19,10 @@ public class Client {
     public Client(){
     }
 
+    public void login() {
+
+    }
+
     /**
      * The search method posts searchInfo to the servlet and return the search result
      * of an array of Img which contain all info about each image
