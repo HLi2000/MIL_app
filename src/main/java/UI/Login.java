@@ -5,6 +5,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import imgDB.Client;
+import imgDB.User;
+
 public class Login extends JFrame{
     //JFrame jFrame = new JFrame("Login");
 
@@ -88,9 +91,31 @@ public class Login extends JFrame{
             public void actionPerformed(ActionEvent ae) {
                 char[] pa = password.getPassword();
                 String pa_s = String.valueOf(pa);
-
+                String user_name = username.getText();
+                User user_login = new User();
+                user_login.getUsername(user_name);
+                user_login.getPassword(pa_s);
+                user_login.hashcode();
+                Client c = new Client();
+                try{
+                    c.login(user_login);
+                    login_status = true;
+                    setVisible(false);
+                    Search s = new Search();
+                }catch (Exception E){
+                    JPanel messagepanel = new JPanel();
+                    messagepanel.setBounds(0, 250, 400, 50);
+                    messagepanel.setBackground(panel_color);
+                    JLabel error_message = new JLabel("wrong username or password, please try again!");
+                    Font f = new Font(Font.DIALOG, Font.BOLD, 12);
+                    error_message.setFont(f);
+                    error_message.setForeground(message_color);
+                    messagepanel.add(error_message);
+                    add(messagepanel);
+                    setVisible(true);
+                }
                 //check username and password
-                if (username.getText().equals("123") && pa_s.equals("123")) {
+               /* if (username.getText().equals("123") && pa_s.equals("123")) {
                     login_status = true;
                     setVisible(false);
                     Search s = new Search();
@@ -106,7 +131,7 @@ public class Login extends JFrame{
                     messagepanel.add(error_message);
                     add(messagepanel);
                     setVisible(true);
-                }
+                }*/
             }
         });
     }

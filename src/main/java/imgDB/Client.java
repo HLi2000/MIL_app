@@ -10,17 +10,103 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * The Client is used to communicate with the servlet
+ *
+ * @author  Hao Li
+ * @since   2021-12-05
+ */
 public class Client {
+
     public Client(){
     }
 
+    public void login(User user) throws Exception{
+        URL myURL = new URL("https://mil-servlet.herokuapp.com/login");
+        HttpURLConnection conn = (HttpURLConnection) myURL.openConnection();
+
+        //transform user to gson format
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(user);
+        byte[] body = jsonString.getBytes(StandardCharsets.UTF_8);
+
+        //set up the header
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty("Accept", "application/json");
+        conn.setDoOutput(true);
+
+        //write the body of the login request
+        try (OutputStream outputStream = conn.getOutputStream()) {
+            outputStream.write(body, 0, body.length);
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new
+                    InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
+
+            String inputLine;//responded text from servlet
+
+            // Read the body of the login response
+            while ((inputLine = bufferedReader.readLine()) != null) {
+                System.out.println(inputLine);
+            }
+            bufferedReader.close();
+        }
+        catch (Exception e){
+            System.out.println(e);
+            System.out.println("response problem");
+        }
+    }
+
+    public void register(User user) throws Exception{
+        URL myURL = new URL("https://mil-servlet.herokuapp.com/register");
+        HttpURLConnection conn = (HttpURLConnection) myURL.openConnection();
+
+        //transform user to gson format
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(user);
+
+        //set up the header
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty("Accept", "application/json");
+        conn.setDoOutput(true);
+
+        //write the body of the register request
+        try (OutputStream outputStream = conn.getOutputStream()) {
+            byte[] body = jsonString.getBytes(StandardCharsets.UTF_8);
+            outputStream.write(body, 0, body.length);
+        }
+        catch(Exception e){
+            System.out.println("false in body");
+        }
+        BufferedReader bufferedReader = new BufferedReader(new
+                InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
+        String inputLine;//responded text from servlet
+
+        // Read the body of the login response
+        while ((inputLine = bufferedReader.readLine()) != null) {
+            System.out.println(inputLine);
+        }
+        bufferedReader.close();
+    }
+
+    /**
+     * The search method posts searchInfo to the servlet and return the search result
+     * of an array of Img which contain all info about each image
+     *
+     * @param searchInfo search info
+     * @return Img[], an array of Img which contain all info about each image
+     */
     public Img[] search(SearchInfo searchInfo) throws Exception{
+
         // Set up the body data
         Gson gson = new Gson();
         String jsonString = gson.toJson(searchInfo);
 
+        // Set up the Connection
         URL myURL = new URL("https://mil-servlet.herokuapp.com/search");
-        //URL myURL = new URL("http://localhost:8080/DBServlet/search");
         HttpURLConnection conn = (HttpURLConnection) myURL.openConnection();
 
         // Set up the header
@@ -44,19 +130,28 @@ public class Client {
             for (Img img : img_a) {
                 img.setThumbnail(getThumbnail(img));
             }
+
             return img_a;
         }
         bufferedReader.close();
+
         return new Img[]{};
     }
 
+    /**
+     * The getThumbnail method posts a certain Img to the servlet to get its thumbnail
+     *
+     * @param img image info
+     * @return InputStream of the thumbnail
+     */
     public InputStream getThumbnail(Img img) throws Exception{
+
         // Set up the body data
         String filename= img.getFile_name();
         byte[] body = filename.getBytes(StandardCharsets.UTF_8);
 
+        // Set up the Connection
         URL myURL = new URL("https://mil-servlet.herokuapp.com/thumbnail");
-
         HttpURLConnection conn = (HttpURLConnection) myURL.openConnection();
 
         // Set up the header
@@ -71,17 +166,23 @@ public class Client {
             outputStream.write(body, 0, body.length);
         }
 
-        // Read the body of the response
+        // Read and return the body of the response
         return conn.getInputStream();
     }
 
+    /**
+     * The getImg method posts a certain Img to the servlet to get its raw image
+     *
+     * @param img image info
+     * @return InputStream of the raw image
+     */
     public InputStream getImg(Img img) throws Exception{
         // Set up the body data
         String filename= img.getFile_name();
         byte[] body = filename.getBytes(StandardCharsets.UTF_8);
 
+        // Set up the Connection
         URL myURL = new URL("https://mil-servlet.herokuapp.com/img");
-
         HttpURLConnection conn = (HttpURLConnection) myURL.openConnection();
 
         // Set up the header
@@ -96,7 +197,7 @@ public class Client {
             outputStream.write(body, 0, body.length);
         }
 
-        // Read the body of the response
+        // Read and return the body of the response
         return conn.getInputStream();
     }
 }
