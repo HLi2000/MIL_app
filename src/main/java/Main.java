@@ -1,3 +1,5 @@
+
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -7,11 +9,11 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         User u = new User();
-        u.getUsername("avcd");
-        u.getPassword("123");
+        u.setUsername("abb");
+        u.setPassword("1223");
         u.hashcode();
-        System.out.println(u.username);
-        System.out.println(u.password);
+        System.out.println(u.getH_username());
+        System.out.println(u.getH_password());
 
         Client c = new Client();
 

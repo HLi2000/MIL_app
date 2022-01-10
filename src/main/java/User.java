@@ -1,22 +1,38 @@
 public class User {
     //unhashed
-    public String rawUsername;
-    public String rawPassword;
+    private String rawUsername;
+    private String rawPassword;
     //hashed
-    public int username;
-    public int password;
+    private int h_username=0;
+    private int h_password=0;
 
 
-    public void getUsername(String username){
+    public void setUsername(String username){
         this.rawUsername = username;
     }
 
-    public void getPassword(String password){
+    public void setPassword(String password){
         this.rawPassword = password;
     }
 
     public void hashcode(){
-        username = rawUsername.hashCode() + 1248;
-        password = rawPassword.hashCode() + 1248;
+        h_username = rawUsername.hashCode() + 1248;
+        h_password = rawPassword.hashCode() + 1248;
+    }
+
+    public void setH_password(int h_password) {
+        this.h_password = h_password;
+    }
+
+    public void setH_username(int h_username) {
+        this.h_username = h_username;
+    }
+
+    public int getH_username() {
+        return h_username;
+    }
+
+    public int getH_password() {
+        return h_password;
     }
 }

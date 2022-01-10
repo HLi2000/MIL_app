@@ -40,6 +40,7 @@ public class Client {
         catch(Exception e){
             System.out.println(e);
         }
+
         try {
             BufferedReader bufferedReader = new BufferedReader(new
                     InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
@@ -79,6 +80,7 @@ public class Client {
         catch(Exception e){
             System.out.println("false in body");
         }
+
         BufferedReader bufferedReader = new BufferedReader(new
                 InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
         String inputLine;//responded text from servlet
