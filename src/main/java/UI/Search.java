@@ -53,6 +53,11 @@ public class Search extends JFrame{
     JPanel line = new JPanel();
     private JPanel display = new JPanel();
 
+    JPanel result_number = new JPanel();
+
+
+
+
     // Colors
     Color line_color = new Color(190, 190, 190);
     Color fieldpanel_color = new Color(54, 54, 54);
@@ -119,16 +124,22 @@ public class Search extends JFrame{
         add(fieldPanel);
 
         //display panel
-        display.setBounds(305, 0, 695, 800);
+        display.setBounds(305, 0, 695, 700);
         display.setBackground(displaypanel_color);
         add(display);
+
+        //result number panel
+        result_number.setBounds(305,700,695,100);
+        result_number.setBackground(displaypanel_color);
+        add(result_number);
+
 
         //line panel
         line.setBounds(301, 0, 5, 800);
         line.setBackground(line_color);
         add(line);
 
-        //confirm button
+        //confirm button and panel
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(fieldpanel_color);
         buttonPanel.setBounds(0, 700, 295, 100);
@@ -145,6 +156,7 @@ public class Search extends JFrame{
                 if (!light) {
                     fieldPanel.setBackground(lightmode);
                     display.setBackground(text_color);
+                    result_number.setBackground(text_color);
                     buttonPanel.setBackground(lightmode);
                     region.setForeground(fieldpanel_color);
                     modality.setForeground(fieldpanel_color);
@@ -161,6 +173,7 @@ public class Search extends JFrame{
                 } else {
                     fieldPanel.setBackground(fieldpanel_color);
                     display.setBackground(displaypanel_color);
+                    result_number.setBackground(displaypanel_color);
                     buttonPanel.setBackground(fieldpanel_color);
                     region.setForeground(text_color);
                     modality.setForeground(text_color);
@@ -302,7 +315,6 @@ public class Search extends JFrame{
             }
         });
 
-        int confirm_flag = 0;
         confirm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -336,6 +348,7 @@ public class Search extends JFrame{
                 }
 
                 flag = 0;
+                result_number.removeAll();
                 for (Img img : img_a) {
                     System.out.println("img.getFile_name() " + img.getFile_name());
                     flag++;
@@ -371,6 +384,10 @@ public class Search extends JFrame{
                         }
                     });
                 }
+                JLabel result_text = new JLabel("found"+flag+"results");
+                result_number.add(result_text);
+                result_number.repaint();
+
             }
         });
     }
