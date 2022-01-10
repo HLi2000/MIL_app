@@ -52,10 +52,8 @@ public class Search extends JFrame{
 
     JPanel line = new JPanel();
     private JPanel display = new JPanel();
-
-    JPanel result_number = new JPanel();
-
-
+    private JPanel result_number = new JPanel();
+    //JLabel hello_lbel = new JLabel();
 
 
     // Colors
@@ -63,8 +61,12 @@ public class Search extends JFrame{
     Color fieldpanel_color = new Color(54, 54, 54);
     Color text_color = new Color(181, 181, 181);
     Color displaypanel_color = new Color(130, 130, 130);
-    Font f = new Font(Font.DIALOG, Font.BOLD, 16);
     Color lightmode = new Color(255, 255, 255);
+    Color result_color = new Color(238,238,209);
+    Color welcome_color = new Color(209,238,238);
+    Color welcome_lightmode = new Color(180,205,205);
+    Font f = new Font(Font.DIALOG, Font.BOLD, 16);
+    Font welcome_f = new Font(Font.DIALOG, Font.BOLD, 20);
 
     public Search() {
         super("Search");
@@ -83,21 +85,25 @@ public class Search extends JFrame{
         //search_frame.setResizable(false);
         fieldPanel.setLayout(null);
         //set size of the components
-        region.setBounds(20, 25, 70, 50);
-        modality.setBounds(20, 100, 100, 20);
-        patient.setBounds(20, 190, 130, 50);
-        name.setBounds(20, 230, 200, 30);
-        r_choice.setBounds(100, 30, 150, 40);
-        choice_MRI.setBounds(20, 130, 55, 20);
-        choice_CT.setBounds(90, 130, 50, 20);
-        choice_US.setBounds(150, 130, 105, 20);
-        choice_XRay.setBounds(20, 160, 68, 20);
-        choice_ECG.setBounds(90, 160, 60, 20);
+        JLabel welcome_label = new JLabel("Hello,");
+
+        welcome_label.setBounds(20,10,70,50);
+        region.setBounds(20, 75, 70, 50);
+        modality.setBounds(20, 125, 100, 20);
+        patient.setBounds(20, 215, 130, 50);
+        name.setBounds(20, 255, 200, 30);
+        r_choice.setBounds(100, 85, 150, 40);
+        choice_MRI.setBounds(20, 155, 55, 20);
+        choice_CT.setBounds(90, 155, 50, 20);
+        choice_US.setBounds(150, 155, 105, 20);
+        choice_XRay.setBounds(20, 185, 68, 20);
+        choice_ECG.setBounds(90, 185, 60, 20);
 
         // set font
         region.setFont(f);
         modality.setFont(f);
         patient.setFont(f);
+        welcome_label.setFont(welcome_f);
 
         //set color of text
         region.setForeground(text_color);
@@ -109,6 +115,7 @@ public class Search extends JFrame{
         choice_US.setForeground(text_color);
         choice_XRay.setForeground(text_color);
         choice_ECG.setForeground(text_color);
+        welcome_label.setForeground(welcome_color);
 
         // add components to the panel
         fieldPanel.add(region);
@@ -121,6 +128,7 @@ public class Search extends JFrame{
         fieldPanel.add(choice_XRay);
         fieldPanel.add(choice_ECG);
         fieldPanel.add(name);
+        fieldPanel.add(welcome_label);
         add(fieldPanel);
 
         //display panel
@@ -158,6 +166,7 @@ public class Search extends JFrame{
                     display.setBackground(text_color);
                     result_number.setBackground(text_color);
                     buttonPanel.setBackground(lightmode);
+                    welcome_label.setForeground(welcome_lightmode);
                     region.setForeground(fieldpanel_color);
                     modality.setForeground(fieldpanel_color);
                     patient.setForeground(fieldpanel_color);
@@ -175,6 +184,7 @@ public class Search extends JFrame{
                     display.setBackground(displaypanel_color);
                     result_number.setBackground(displaypanel_color);
                     buttonPanel.setBackground(fieldpanel_color);
+                    welcome_label.setForeground(welcome_color);
                     region.setForeground(text_color);
                     modality.setForeground(text_color);
                     patient.setForeground(text_color);
@@ -384,7 +394,9 @@ public class Search extends JFrame{
                         }
                     });
                 }
-                JLabel result_text = new JLabel("found"+flag+"results");
+                JLabel result_text = new JLabel("found "+flag+" result(s)");
+                result_text.setFont(f);
+                result_text.setForeground(result_color);
                 result_number.add(result_text);
                 result_number.repaint();
 
