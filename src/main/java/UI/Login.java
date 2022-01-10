@@ -93,8 +93,8 @@ public class Login extends JFrame{
                 String pa_s = String.valueOf(pa);
                 String user_name = username.getText();
                 User user_login = new User();
-                user_login.getUsername(user_name);
-                user_login.getPassword(pa_s);
+                user_login.setUsername(user_name);
+                user_login.setPassword(pa_s);
                 user_login.hashcode();
                 Client c = new Client();
                 try{
