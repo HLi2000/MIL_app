@@ -114,10 +114,11 @@ public class Login extends JFrame{
                         Search s = new Search();
                     }else {
                         JPanel messagepanel = new JPanel();
-                        messagepanel.setBounds(0, 250, 400, 50);
+                        messagepanel.setBounds(0, 250, 350, 50);
                         messagepanel.setBackground(panel_color);
-                        JLabel error_message = new JLabel("wrong username or password, please try again!");
-                        Font f = new Font(Font.DIALOG, Font.BOLD, 10);
+                        JLabel error_message = new JLabel("incorrect username or password, please try again!");
+                        error_message.setBounds(0,10,400,30);
+                        Font f = new Font(Font.DIALOG, Font.BOLD, 11);
                         error_message.setFont(f);
                         error_message.setForeground(message_color);
                         messagepanel.add(error_message);
@@ -128,4 +129,7 @@ public class Login extends JFrame{
             }
         });
     }
+    /*public String[] return_username(){
+
+    }*/
 }
