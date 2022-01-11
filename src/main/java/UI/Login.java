@@ -4,6 +4,10 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 import imgDB.Client;
 import imgDB.User;
@@ -86,6 +90,7 @@ public class Login extends JFrame{
             }
         });
 
+        final String[] result = {null};
         confirmbtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -97,41 +102,29 @@ public class Login extends JFrame{
                 user_login.setPassword(pa_s);
                 user_login.hashcode();
                 Client c = new Client();
+
                 try{
-                    c.login(user_login);
-                    login_status = true;
-                    setVisible(false);
-                    Search s = new Search();
+                    result[0] =c.login(user_login);
                 }catch (Exception E){
-                    JPanel messagepanel = new JPanel();
-                    messagepanel.setBounds(0, 250, 400, 50);
-                    messagepanel.setBackground(panel_color);
-                    JLabel error_message = new JLabel("wrong username or password, please try again!");
-                    Font f = new Font(Font.DIALOG, Font.BOLD, 12);
-                    error_message.setFont(f);
-                    error_message.setForeground(message_color);
-                    messagepanel.add(error_message);
-                    add(messagepanel);
-                    setVisible(true);
+                    System.out.println("failed to login");
                 }
-                //check username and password
-               /* if (username.getText().equals("123") && pa_s.equals("123")) {
-                    login_status = true;
-                    setVisible(false);
-                    Search s = new Search();
-                } else {
-                    //show the error message
-                    JPanel messagepanel = new JPanel();
-                    messagepanel.setBounds(0, 250, 400, 50);
-                    messagepanel.setBackground(panel_color);
-                    JLabel error_message = new JLabel("wrong username or password, please try again!");
-                    Font f = new Font(Font.DIALOG, Font.BOLD, 12);
-                    error_message.setFont(f);
-                    error_message.setForeground(message_color);
-                    messagepanel.add(error_message);
-                    add(messagepanel);
-                    setVisible(true);
-                }*/
+                    if (result[0].equals("correct username and password")){
+                        login_status = true;
+                        setVisible(false);
+                        Search s = new Search();
+                    }else {
+                        JPanel messagepanel = new JPanel();
+                        messagepanel.setBounds(0, 250, 400, 50);
+                        messagepanel.setBackground(panel_color);
+                        JLabel error_message = new JLabel("wrong username or password, please try again!");
+                        Font f = new Font(Font.DIALOG, Font.BOLD, 10);
+                        error_message.setFont(f);
+                        error_message.setForeground(message_color);
+                        messagepanel.add(error_message);
+                        add(messagepanel);
+                        setVisible(true);
+                    }
+
             }
         });
     }

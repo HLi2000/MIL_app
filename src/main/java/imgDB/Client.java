@@ -21,7 +21,7 @@ public class Client {
     public Client(){
     }
 
-    public void login(User user) throws Exception{
+    public String login(User user) throws Exception{
         URL myURL = new URL("https://mil-servlet.herokuapp.com/login");
         HttpURLConnection conn = (HttpURLConnection) myURL.openConnection();
 
@@ -36,6 +36,7 @@ public class Client {
         conn.setDoOutput(true);
 
         //write the body of the login request
+        String result = null;
         try (OutputStream outputStream = conn.getOutputStream()) {
             outputStream.write(body, 0, body.length);
         }
@@ -50,6 +51,7 @@ public class Client {
 
             // Read the body of the login response
             while ((inputLine = bufferedReader.readLine()) != null) {
+                result = inputLine;
                 System.out.println(inputLine);
             }
             bufferedReader.close();
@@ -58,6 +60,8 @@ public class Client {
             System.out.println(e);
             System.out.println("response problem");
         }
+        return result;
+
     }
 
     public void register(User user) throws Exception{
