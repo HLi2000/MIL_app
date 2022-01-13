@@ -1,33 +1,39 @@
 package Entities;
 
-public class User {
+import java.io.Serializable;
+
+/**
+ * User is used to store all user info
+ */
+
+public class User implements Serializable {
     //unhashed
-    private String rawUsername;
-    private String rawPassword;
+    private String username;
+    private String password;
     //hashed
     private int h_username=0;
     private int h_password=0;
 
 
     public void setUsername(String username){
-        this.rawUsername = username;
+        this.username = username;
     }
 
     public void setPassword(String password){
-        this.rawPassword = password;
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public void hashcode(){
-        h_username = rawUsername.hashCode() + 1248;
-        h_password = rawPassword.hashCode() + 1248;
-    }
-
-    public void setH_password(int h_password) {
-        this.h_password = h_password;
-    }
-
-    public void setH_username(int h_username) {
-        this.h_username = h_username;
+        h_username = username.hashCode() + 1248;
+        h_password = password.hashCode() + 1248;
     }
 
     public int getH_username() {

@@ -3,10 +3,7 @@ package Entities;
 import java.io.Serializable;
 
 /**
- * The UI.Entities.SearchInfo is used to store search keywords
- *
- * @author  Hao Li
- * @since   2021-12-05
+ * SearchInfo is used to store all search keywords info
  */
 
 public class SearchInfo implements Serializable {

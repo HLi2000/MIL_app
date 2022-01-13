@@ -4,10 +4,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 
 /**
- * The UI.Entities.Img is used to store image info plus its thumbnail
- *
- * @author  Hao Li
- * @since   2021-12-05
+ * Img is used to store all img info
  */
 
 public class Img implements Serializable {
