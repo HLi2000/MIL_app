@@ -150,7 +150,7 @@ public class Search extends JFrame {
         //display panel
         display.setBounds(305, 0, 695, 700);
         display.setBackground(displaypanel_color);
-        //display.setLayout();
+        display.setLayout(null);
         add(display);
 
         //scrollbar panel
@@ -348,11 +348,9 @@ public class Search extends JFrame {
         });
 
         JScrollBar display_scroll = new JScrollBar(JScrollBar.VERTICAL);
-        display_scroll.setUnitIncrement(100);
-        display_scroll.setBlockIncrement(100);
-       //display_scroll.setOrientation(Adjustable.VERTICAL);
-        display_scroll.setBounds(0,10,30,700);
+        display_scroll.setBounds(655,0,20,800);
         display_scroll.setForeground(fieldpanel_color);
+        //display_scroll.setLayout();
         display.add(display_scroll);
 
 
@@ -393,11 +391,7 @@ public class Search extends JFrame {
                 result_number.removeAll();
 
                 for (Img img : img_a) {
-                    System.out.println("img.getFile_name() " + img.getFile_name());
                     flag++;
-                    System.out.println("flag " + flag);
-                    //break;
-
                     Image image = null;
                     try {
                         image = ImageIO.read(img.getThumbnail());
@@ -408,14 +402,39 @@ public class Search extends JFrame {
                     ImageIcon imageIcon = new ImageIcon(image);
                     JLabel label = new JLabel(imageIcon);
                     String file_name = img.getFile_name();
-                    label.setText(file_name);
-                    display.add(label);
+                    if ((flag%4)==1){
+                        label.setBounds(40,30+(flag-1)*40,100,100);
+                        JLabel filename_label = new JLabel(file_name);
+                        filename_label.setBounds(40,140+(flag-1)*40,100,20);
+                        display.add(label);
+                        display.add(filename_label);
+                    }else if ((flag%4)==2){
+                        label.setBounds(190,30+(flag-2)*40,100,100);
+                        JLabel filename_label = new JLabel(file_name);
+                        filename_label.setBounds(190,140+(flag-2)*40,100,20);
+                        display.add(label);
+                        display.add(filename_label);
+                    }else if ((flag%4)==3){
+                        label.setBounds(340,30+(flag-3)*40,100,100);
+                        JLabel filename_label = new JLabel(file_name);
+                        filename_label.setBounds(340,140+(flag-3)*40,100,20);
+                        display.add(label);
+                        display.add(filename_label);
+                    }else if ((flag%4)==0){
+                        label.setBounds(490,30+(flag-4)*40,100,100);
+                        JLabel filename_label = new JLabel(file_name);
+                        filename_label.setBounds(490,140+(flag-4)*40,100,20);
+                        display.add(label);
+                        display.add(filename_label);
+                    }
+
+                    display.repaint();
+
 
                     label.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
                             super.mouseClicked(e);
-
                             try {
                                 InputStream img_stream = cl.getImg(img);
                                 Image image = ImageIO.read(img_stream);
