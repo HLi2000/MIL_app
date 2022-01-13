@@ -15,9 +15,6 @@ import java.nio.charset.StandardCharsets;
  */
 public class Client {
 
-    public Client(){
-    }
-
     /**
      * The login method post a User object to the servlet and get result as response
      *
@@ -30,8 +27,6 @@ public class Client {
 
         return getResult(user, myURL);
     }
-
-
 
     /**
      * The register method post a User object to the servlet and get result as response
