@@ -57,9 +57,12 @@ public class Search extends JFrame {
 
     JPanel line = new JPanel();
     private JPanel display = new JPanel();
+    private JPanel display_2= new JPanel();
+    private  JPanel display_3= new JPanel();
     private JPanel result_number = new JPanel();
     //JLabel hello_lbel = new JLabel();
     private JPanel cardlayout = new JPanel();
+    private CardLayout card = new CardLayout();
 
 
     //cardlayout button
@@ -153,8 +156,14 @@ public class Search extends JFrame {
 
         //display panel
         display.setBounds(305, 0, 695, 670);
+        display_2.setBounds(305,0,695,670);
+        display_3.setBounds(305,0,695,670);
         display.setBackground(displaypanel_color);
+        display_2.setBackground(displaypanel_color);
+        display_3.setBackground(displaypanel_color);
         display.setLayout(null);
+        display_2.setLayout(null);
+        display_3.setLayout(null);
         add(display);
 
         //result number panel
@@ -163,15 +172,16 @@ public class Search extends JFrame {
         add(result_number);
 
         //cardlayout panel and button
+        CardLayout card=new CardLayout();
         cardlayout.setBounds(305,670,695,60);
         cardlayout.setBackground(displaypanel_color);
         btn_1.setBounds(100,10,100,50);
         cardlayout.add(btn_1);
         cardlayout.add(btn_2);
         cardlayout.add(btn_3);
+        //cardlayout.setLayout(card);
         add(cardlayout);
         cardlayout.setVisible(true);
-
 
 
         //line panel
@@ -405,34 +415,76 @@ public class Search extends JFrame {
                     ImageIcon imageIcon = new ImageIcon(image);
                     JLabel label = new JLabel(imageIcon);
                     String file_name = img.getFile_name();
-                    if ((flag % 4) == 1) {
-                        label.setBounds(40, 30 + (flag - 1) * 40, 100, 100);
-                        JLabel filename_label = new JLabel(file_name);
-                        filename_label.setBounds(40, 140 + (flag - 1) * 40, 100, 20);
-                        display.add(label);
-                        display.add(filename_label);
-                    } else if ((flag % 4) == 2) {
-                        label.setBounds(190, 30 + (flag - 2) * 40, 100, 100);
-                        JLabel filename_label = new JLabel(file_name);
-                        filename_label.setBounds(190, 140 + (flag - 2) * 40, 100, 20);
-                        display.add(label);
-                        display.add(filename_label);
-                    } else if ((flag % 4) == 3) {
-                        label.setBounds(340, 30 + (flag - 3) * 40, 100, 100);
-                        JLabel filename_label = new JLabel(file_name);
-                        filename_label.setBounds(340, 140 + (flag - 3) * 40, 100, 20);
-                        display.add(label);
-                        display.add(filename_label);
-                    } else if ((flag % 4) == 0) {
-                        label.setBounds(490, 30 + (flag - 4) * 40, 100, 100);
-                        JLabel filename_label = new JLabel(file_name);
-                        filename_label.setBounds(490, 140 + (flag - 4) * 40, 100, 20);
-                        display.add(label);
-                        display.add(filename_label);
+
+                    if (flag<=16) {
+                        if ((flag % 4) == 1) {
+                            label.setBounds(40, 30 + (flag - 1) * 40, 100, 100);
+                            JLabel filename_label = new JLabel(file_name);
+                            filename_label.setBounds(40, 140 + (flag - 1) * 40, 100, 20);
+                            display.add(label);
+                            display.add(filename_label);
+                        } else if ((flag % 4) == 2) {
+                            label.setBounds(190, 30 + (flag - 2) * 40, 100, 100);
+                            JLabel filename_label = new JLabel(file_name);
+                            filename_label.setBounds(190, 140 + (flag - 2) * 40, 100, 20);
+                            display.add(label);
+                            display.add(filename_label);
+                        } else if ((flag % 4) == 3) {
+                            label.setBounds(340, 30 + (flag - 3) * 40, 100, 100);
+                            JLabel filename_label = new JLabel(file_name);
+                            filename_label.setBounds(340, 140 + (flag - 3) * 40, 100, 20);
+                            display.add(label);
+                            display.add(filename_label);
+                        } else if ((flag % 4) == 0) {
+                            label.setBounds(490, 30 + (flag - 4) * 40, 100, 100);
+                            JLabel filename_label = new JLabel(file_name);
+                            filename_label.setBounds(490, 140 + (flag - 4) * 40, 100, 20);
+                            display.add(label);
+                            display.add(filename_label);
+                        }
+                        display.repaint();
                     }
 
-                    display.repaint();
+                    if (flag>16 && flag<=32){
+                        if ((flag % 4) == 1) {
+                            label.setBounds(40, 30 + (flag - 1) * 40, 100, 100);
+                            JLabel filename_label = new JLabel(file_name);
+                            filename_label.setBounds(40, 140 + (flag - 1) * 40, 100, 20);
+                            display_2.add(label);
+                            display_2.add(filename_label);
+                        } else if ((flag % 4) == 2) {
+                            label.setBounds(190, 30 + (flag - 2) * 40, 100, 100);
+                            JLabel filename_label = new JLabel(file_name);
+                            filename_label.setBounds(190, 140 + (flag - 2) * 40, 100, 20);
+                            display_2.add(label);
+                            display.add(filename_label);
+                        } else if ((flag % 4) == 3) {
+                            label.setBounds(340, 30 + (flag - 3) * 40, 100, 100);
+                            JLabel filename_label = new JLabel(file_name);
+                            filename_label.setBounds(340, 140 + (flag - 3) * 40, 100, 20);
+                            display_2.add(label);
+                            display.add(filename_label);
+                        } else if ((flag % 4) == 0) {
+                            label.setBounds(490, 30 + (flag - 4) * 40, 100, 100);
+                            JLabel filename_label = new JLabel(file_name);
+                            filename_label.setBounds(490, 140 + (flag - 4) * 40, 100, 20);
+                            display_2.add(label);
+                            display_2.add(filename_label);
 
+                        }
+                        add(display_2);
+                        display_2.repaint();
+                        btn_2.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent ae) {
+                                display_2.setVisible(true);
+                                display_2.repaint();
+                                display_2.revalidate();
+
+                            }
+                        });
+
+                    }
                     label.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
@@ -447,81 +499,7 @@ public class Search extends JFrame {
                         }
                     });
                 }
-
-
-                /*JScrollBar display_scroll = new JScrollBar(JScrollBar.VERTICAL, 0, 2, 0, 20);
-                display_scroll.setUnitIncrement(1);
-                display_scroll.setBlockIncrement(1);
-                Img[] finalImg_a = img_a;
-                display_scroll.addAdjustmentListener(new AdjustmentListener() {
-                    @Override
-                    public void adjustmentValueChanged(AdjustmentEvent e) {
-                        int number_of_scroll = e.getValue();
-                        for (Img img : finalImg_a) {
-                            flag++;
-                            Image image = null;
-                            try {
-                                image = ImageIO.read(img.getThumbnail());
-                            } catch (IOException ae) { ae.printStackTrace();
-                            }
-
-                            ImageIcon imageIcon = new ImageIcon(image);
-                            JLabel label = new JLabel(imageIcon);
-                            String file_name = img.getFile_name();
-                            if (flag >= number_of_scroll*4){
-                                if ((flag % 4) == 1) {
-                                    label.setBounds(40, 30 + (flag - 1) * 40, 100, 100);
-                                    JLabel filename_label = new JLabel(file_name);
-                                    filename_label.setBounds(40, 140 + (flag - 1) * 40, 100, 20);
-                                    display.add(label);
-                                    display.add(filename_label);
-                                } else if ((flag % 4) == 2) {
-                                    label.setBounds(190, 30 + (flag - 2) * 40, 100, 100);
-                                    JLabel filename_label = new JLabel(file_name);
-                                    filename_label.setBounds(190, 140 + (flag - 2) * 40, 100, 20);
-                                    display.add(label);
-                                    display.add(filename_label);
-                                } else if ((flag % 4) == 3) {
-                                    label.setBounds(340, 30 + (flag - 3) * 40, 100, 100);
-                                    JLabel filename_label = new JLabel(file_name);
-                                    filename_label.setBounds(340, 140 + (flag - 3) * 40, 100, 20);
-                                    display.add(label);
-                                    display.add(filename_label);
-                                } else if ((flag % 4) == 0) {
-                                    label.setBounds(490, 30 + (flag - 4) * 40, 100, 100);
-                                    JLabel filename_label = new JLabel(file_name);
-                                    filename_label.setBounds(490, 140 + (flag - 4) * 40, 100, 20);
-                                    display.add(label);
-                                    display.add(filename_label);
-                                }
-
-                            }
-
-
-                            display.repaint();
-
-                            label.addMouseListener(new MouseAdapter() {
-                                @Override
-                                public void mouseClicked(MouseEvent e) {
-                                    super.mouseClicked(e);
-                                    try {
-                                        InputStream img_stream = cl.getImg(img);
-                                        Image image = ImageIO.read(img_stream);
-                                        Zoom z = new Zoom(image, file_name);
-                                    } catch (Exception ex) {
-                                        ex.printStackTrace();
-                                    }
-                                }
-                            });
-                        }
-
-
-                    }
-                });*/
-                //display_scroll.setBounds(670, 0, 15, 700);
-                //display_scroll.setForeground(fieldpanel_color);
-                //display.add(display_scroll);
-                display.setVisible(true);
+                //display.setVisible(true);
                 JLabel result_text = new JLabel("found " + flag + " result(s)");
                 result_text.setFont(f);
                 result_text.setForeground(result_color);
