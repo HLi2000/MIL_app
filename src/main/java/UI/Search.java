@@ -4,13 +4,14 @@ import Entities.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 
-public class Search extends JFrame{
+public class Search extends JFrame {
     Boolean light = false;
     Boolean MRI = false;
     Boolean CT = false;
@@ -45,12 +46,13 @@ public class Search extends JFrame{
     // Patient name
     JLabel patient = new JLabel("Patient Name:");
     private JTextField name = new JTextField();
-    private String patient_name =new String();
+    private String patient_name = new String();
     private String patient_name_cap = new String();
 
     JPanel line = new JPanel();
     private JPanel display = new JPanel();
     private JPanel result_number = new JPanel();
+    private JPanel scrollbar_panel = new JPanel();
     //JLabel hello_lbel = new JLabel();
 
 
@@ -60,9 +62,9 @@ public class Search extends JFrame{
     Color text_color = new Color(181, 181, 181);
     Color displaypanel_color = new Color(130, 130, 130);
     Color lightmode = new Color(255, 255, 255);
-    Color result_color = new Color(238,238,209);
-    Color welcome_color = new Color(209,238,238);
-    Color welcome_lightmode = new Color(180,205,205);
+    Color result_color = new Color(238, 238, 209);
+    Color welcome_color = new Color(209, 238, 238);
+    Color welcome_lightmode = new Color(180, 205, 205);
     Font f = new Font(Font.DIALOG, Font.BOLD, 16);
     Font welcome_f = new Font(Font.DIALOG, Font.BOLD, 20);
 
@@ -85,7 +87,7 @@ public class Search extends JFrame{
         //set size of the components
         JLabel welcome_label = new JLabel("Hello,");
 
-        welcome_label.setBounds(20,10,70,50);
+        welcome_label.setBounds(20, 10, 70, 50);
         region.setBounds(20, 75, 70, 50);
         modality.setBounds(20, 125, 100, 20);
         patient.setBounds(20, 215, 130, 50);
@@ -130,12 +132,17 @@ public class Search extends JFrame{
         add(fieldPanel);
 
         //display panel
-        display.setBounds(305, 0, 695, 700);
+        display.setBounds(305, 0, 665, 700);
         display.setBackground(displaypanel_color);
         add(display);
 
+        //scrollbar panel
+        scrollbar_panel.setBounds(970,0,30,700);
+        scrollbar_panel.setBackground(displaypanel_color);
+        add(scrollbar_panel);
+
         //result number panel
-        result_number.setBounds(305,700,695,100);
+        result_number.setBounds(305, 700, 695, 100);
         result_number.setBackground(displaypanel_color);
         add(result_number);
 
@@ -198,57 +205,57 @@ public class Search extends JFrame{
             }
         });
 
-        region_choice[0]="Head";
-        region_choice[1]="Heart";
-        region_choice[2]="Arm";
-        region_choice[3]="Body";
-        region_choice[4]="Leg";
+        region_choice[0] = "Head";
+        region_choice[1] = "Heart";
+        region_choice[2] = "Arm";
+        region_choice[3] = "Body";
+        region_choice[4] = "Leg";
 
         r_choice.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     if (r_choice.getSelectedItem().toString() == "All") {
-                        region_choice[0]="Head";
-                        region_choice[1]="Heart";
-                        region_choice[2]="Arm";
-                        region_choice[3]="Body";
-                        region_choice[4]="Leg";
+                        region_choice[0] = "Head";
+                        region_choice[1] = "Heart";
+                        region_choice[2] = "Arm";
+                        region_choice[3] = "Body";
+                        region_choice[4] = "Leg";
                         System.out.println("r_choice1 " + r_choice.getSelectedItem().toString());
                     } else if (r_choice.getSelectedItem().toString() == "Head") {
                         region_choice[0] = "Head";
-                        region_choice[1]= null;
-                        region_choice[2]= null;
-                        region_choice[3]= null;
-                        region_choice[4]= null;
+                        region_choice[1] = null;
+                        region_choice[2] = null;
+                        region_choice[3] = null;
+                        region_choice[4] = null;
                         System.out.println("r_choice2 " + region_choice[0]);
                     } else if (r_choice.getSelectedItem().toString() == "Heart") {
                         region_choice[0] = "Heart";
-                        region_choice[1]= null;
-                        region_choice[2]= null;
-                        region_choice[3]= null;
-                        region_choice[4]= null;
+                        region_choice[1] = null;
+                        region_choice[2] = null;
+                        region_choice[3] = null;
+                        region_choice[4] = null;
                         System.out.println("r_choice3 " + region_choice[0]);
                     } else if (r_choice.getSelectedItem().toString() == "Arm") {
                         region_choice[0] = "Arm";
-                        region_choice[1]= null;
-                        region_choice[2]= null;
-                        region_choice[3]= null;
-                        region_choice[4]= null;
+                        region_choice[1] = null;
+                        region_choice[2] = null;
+                        region_choice[3] = null;
+                        region_choice[4] = null;
                         System.out.println("r_choice4 " + region_choice[0]);
                     } else if (r_choice.getSelectedItem().toString() == "Body") {
                         region_choice[0] = "Body";
-                        region_choice[1]= null;
-                        region_choice[2]= null;
-                        region_choice[3]= null;
-                        region_choice[4]= null;
+                        region_choice[1] = null;
+                        region_choice[2] = null;
+                        region_choice[3] = null;
+                        region_choice[4] = null;
                         System.out.println("r_choice5 " + region_choice[0]);
                     } else if (r_choice.getSelectedItem().toString() == "Leg") {
                         region_choice[0] = "Leg";
-                        region_choice[1]= null;
-                        region_choice[2]= null;
-                        region_choice[3]= null;
-                        region_choice[4]= null;
+                        region_choice[1] = null;
+                        region_choice[2] = null;
+                        region_choice[3] = null;
+                        region_choice[4] = null;
                         System.out.println("r_choice6 " + region_choice[0]);
                     }
                 }
@@ -323,6 +330,12 @@ public class Search extends JFrame{
             }
         });
 
+        JScrollBar display_scroll = new JScrollBar(JScrollBar.HORIZONTAL);
+        display_scroll.setUnitIncrement(1);
+        display_scroll.setBlockIncrement(10);
+        scrollbar_panel.add(display_scroll,BorderLayout.CENTER);
+
+
         confirm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -357,6 +370,7 @@ public class Search extends JFrame{
 
                 flag = 0;
                 result_number.removeAll();
+
                 for (Img img : img_a) {
                     System.out.println("img.getFile_name() " + img.getFile_name());
                     flag++;
@@ -383,7 +397,7 @@ public class Search extends JFrame{
                             super.mouseClicked(e);
 
                             try {
-                                InputStream img_stream=cl.getImg(img);
+                                InputStream img_stream = cl.getImg(img);
                                 Image image = ImageIO.read(img_stream);
                                 Zoom z = new Zoom(image, file_name);
                             } catch (Exception ex) {
@@ -392,7 +406,8 @@ public class Search extends JFrame{
                         }
                     });
                 }
-                JLabel result_text = new JLabel("found "+flag+" result(s)");
+                display.setVisible(true);
+                JLabel result_text = new JLabel("found " + flag + " result(s)");
                 result_text.setFont(f);
                 result_text.setForeground(result_color);
                 result_number.add(result_text);
@@ -401,4 +416,5 @@ public class Search extends JFrame{
             }
         });
     }
+
 }

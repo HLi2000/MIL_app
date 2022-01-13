@@ -103,7 +103,7 @@ public class Login extends JFrame{
                 }catch (Exception E){
                     System.out.println("failed to login");
                 }
-                    if (result[0].equals("correct username and password")){
+                    if (result[0].equals("Login Successful")){
                         login_status = true;
                         setVisible(false);
                         Search s = new Search();
@@ -111,7 +111,7 @@ public class Login extends JFrame{
                         JPanel messagepanel = new JPanel();
                         messagepanel.setBounds(0, 250, 350, 50);
                         messagepanel.setBackground(panel_color);
-                        JLabel error_message = new JLabel("incorrect username or password, please try again!");
+                        JLabel error_message = new JLabel(result[0]);
                         error_message.setBounds(0,10,400,30);
                         Font f = new Font(Font.DIALOG, Font.BOLD, 11);
                         error_message.setFont(f);
@@ -124,7 +124,4 @@ public class Login extends JFrame{
             }
         });
     }
-    /*public String[] return_username(){
-
-    }*/
 }
