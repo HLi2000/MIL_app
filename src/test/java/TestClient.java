@@ -1,4 +1,5 @@
 import Entities.*;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -123,6 +124,7 @@ public class TestClient {
 
         Assert.assertEquals(res_should_be,res);
     }
+
     @Test
     public void testSearch1() throws Exception {
         String[] modality_a={"CT","MRI"};

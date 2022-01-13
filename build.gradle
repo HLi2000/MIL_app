@@ -17,14 +17,9 @@ repositories {
 }
 
 dependencies {
-    testImplementation group: 'junit', name: 'junit', version: '4.12'
     implementation group: 'com.github.insubstantial', name: 'substance', version: '7.3'
-
     // https://mvnrepository.com/artifact/de.sciss/weblaf
     implementation group: 'de.sciss', name: 'weblaf', version: '2.2.1', ext: 'pom'
     implementation group: 'com.google.code.gson', name:'gson', version: '2.7'
-}
-
-test {
-    useJUnitPlatform()
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
