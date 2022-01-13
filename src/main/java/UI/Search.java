@@ -10,6 +10,7 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import UI.Login;
 
 /**
  * The UI.search is used to provide user a panel to search and display the images filtered by the chosen conditions
@@ -59,7 +60,6 @@ public class Search extends JFrame {
     JPanel line = new JPanel();
     private JPanel display = new JPanel();
     private JPanel result_number = new JPanel();
-    private JPanel scrollbar_panel = new JPanel();
     //JLabel hello_lbel = new JLabel();
 
 
@@ -94,13 +94,14 @@ public class Search extends JFrame {
      * on the frame created before
      *Then add listeners to the buttons and display images
      */
-    public void init() {
+    public void init()  {
         JPanel fieldPanel = new JPanel();
         fieldPanel.setBackground(fieldpanel_color);
         fieldPanel.setBounds(0, 0, 295, 700);
         //search_frame.setResizable(false);
         fieldPanel.setLayout(null);
         //set size of the components
+        //String hello_username =
         JLabel welcome_label = new JLabel("Hello,");
 
         welcome_label.setBounds(20, 10, 70, 50);
@@ -152,11 +153,6 @@ public class Search extends JFrame {
         display.setBackground(displaypanel_color);
         display.setLayout(null);
         add(display);
-
-        //scrollbar panel
-        //scrollbar_panel.setBounds(970,0,30,700);
-        //scrollbar_panel.setBackground(displaypanel_color);
-        //add(scrollbar_panel);
 
         //result number panel
         result_number.setBounds(305, 700, 695, 100);
@@ -347,12 +343,6 @@ public class Search extends JFrame {
             }
         });
 
-        JScrollBar display_scroll = new JScrollBar(JScrollBar.VERTICAL);
-        display_scroll.setBounds(655,0,20,800);
-        display_scroll.setForeground(fieldpanel_color);
-        //display_scroll.setLayout();
-        display.add(display_scroll);
-
 
 
         confirm.addActionListener(new ActionListener() {
@@ -430,7 +420,6 @@ public class Search extends JFrame {
 
                     display.repaint();
 
-
                     label.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
@@ -445,6 +434,18 @@ public class Search extends JFrame {
                         }
                     });
                 }
+                JScrollBar display_scroll = new JScrollBar(JScrollBar.VERTICAL,0, 2, 0, 20);
+                display_scroll.setUnitIncrement(1);
+                display_scroll.setBlockIncrement(1);
+                display_scroll.addAdjustmentListener(new AdjustmentListener() {
+                    @Override
+                    public void adjustmentValueChanged(AdjustmentEvent e) {
+                        int number_of_scroll = e.getValue();
+                    }
+                });
+                display_scroll.setBounds(670,0,15,700);
+                display_scroll.setForeground(fieldpanel_color);
+                display.add(display_scroll);
                 display.setVisible(true);
                 JLabel result_text = new JLabel("found " + flag + " result(s)");
                 result_text.setFont(f);
@@ -454,6 +455,23 @@ public class Search extends JFrame {
 
             }
         });
+    }
+    public static void main(String[] args) throws Exception {
+
+        //skin
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        }catch(Exception e) {
+            System.out.println(e);
+        }
+
+        new Search();
+
     }
 
 }
