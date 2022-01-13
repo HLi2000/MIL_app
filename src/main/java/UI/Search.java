@@ -57,7 +57,12 @@ public class Search extends JFrame {
     private String patient_name_cap = new String();
 
     JPanel line = new JPanel();
+    //private JPanel display = new JPanel();
+    //JTextArea textArea = new JTextArea();
+    //textArea.setText("abcdeaaa");
+        //display.add(textArea);
     private JPanel display = new JPanel();
+
     private JPanel result_number = new JPanel();
     private JPanel scrollbar_panel = new JPanel();
     //JLabel hello_lbel = new JLabel();
@@ -346,14 +351,62 @@ public class Search extends JFrame {
                 }
             }
         });
-
+/*
         JScrollBar display_scroll = new JScrollBar(JScrollBar.VERTICAL);
         display_scroll.setBounds(655,0,20,800);
         display_scroll.setForeground(fieldpanel_color);
         //display_scroll.setLayout();
         display.add(display_scroll);
 
+*/      //display.setLayout(new FlowLayout());
 
+        /*JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBounds(305, 0, 695, 700);
+        scrollPane.setVisible(true);
+        //scrollPane.add(display);
+        //scrollPane.
+        scrollPane.setViewportView(display);
+        //scrollPane.setBounds(305, 0, 695, 700);
+        //display.setBounds(305, 0, 695, 700);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        //final JPanel panel = new JPanel();
+        //panel.setBorder(BorderFactory.createLineBorder(Color.red));
+        //panel.setPreferredSize(new Dimension(800, 600));
+
+        //final JScrollPane scroll = new JScrollPane(panel);
+
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //setLayout(new BorderLayout());
+        add(scrollPane);
+        //setSize(300, 300);
+        //setVisible(true);
+        */
+
+        JTextArea textArea = new JTextArea();
+        //display.add(textArea);
+
+/*
+        //textArea.setText("xx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\n");
+        JPanel p = new JPanel();
+        // create a scrollpane, givin it the textarea as a constructor argument
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        //scrollPane.add(textArea);
+        // now add the scrollpane to the jframe's content pane, specifically
+        // placing it in the center of the jframe's borderlayout
+        JFrame frame = new JFrame("JScrollPane Test");
+        frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+
+        // make it easy to close the application
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // set the frame size (you'll usually want to call frame.pack())
+        frame.setSize(new Dimension(240, 180));
+        // center the frame
+        frame.setLocationRelativeTo(null);
+
+        // make it visible to the user
+        frame.setVisible(true);
+*/
 
         confirm.addActionListener(new ActionListener() {
             @Override
@@ -389,7 +442,8 @@ public class Search extends JFrame {
 
                 flag = 0;
                 result_number.removeAll();
-
+                JPanel p = new JPanel();
+                p.setBounds(305, 0, 695, 700);
                 for (Img img : img_a) {
                     flag++;
                     Image image = null;
@@ -406,27 +460,80 @@ public class Search extends JFrame {
                         label.setBounds(40,30+(flag-1)*40,100,100);
                         JLabel filename_label = new JLabel(file_name);
                         filename_label.setBounds(40,140+(flag-1)*40,100,20);
-                        display.add(label);
-                        display.add(filename_label);
+                        //display.add(label);
+                        //display.add(filename_label);
+                        p.add(label);
+                        p.add(filename_label);
+                        //textArea.setText(file_name);
+                        //display.add(label);
+                        //display.add(filename_label);
                     }else if ((flag%4)==2){
                         label.setBounds(190,30+(flag-2)*40,100,100);
                         JLabel filename_label = new JLabel(file_name);
                         filename_label.setBounds(190,140+(flag-2)*40,100,20);
-                        display.add(label);
-                        display.add(filename_label);
+                        //display.add(label);
+                        //display.add(filename_label);
+                        p.add(label);
+                        p.add(filename_label);
+                        //textArea.setText(file_name);
+                        //display.add(label);
+                        //display.add(filename_label);
                     }else if ((flag%4)==3){
                         label.setBounds(340,30+(flag-3)*40,100,100);
                         JLabel filename_label = new JLabel(file_name);
                         filename_label.setBounds(340,140+(flag-3)*40,100,20);
-                        display.add(label);
-                        display.add(filename_label);
+                        //display.add(label);
+                        //display.add(filename_label);
+                        p.add(label);
+                        p.add(filename_label);
+                        //textArea.setText(file_name);
+                        //display.add(label);
+                        //display.add(filename_label);
                     }else if ((flag%4)==0){
                         label.setBounds(490,30+(flag-4)*40,100,100);
                         JLabel filename_label = new JLabel(file_name);
                         filename_label.setBounds(490,140+(flag-4)*40,100,20);
-                        display.add(label);
-                        display.add(filename_label);
+                        //display.add(label);
+                        //display.add(filename_label);
+                        p.add(label);
+                        p.add(filename_label);
+                        //textArea.setText(file_name);
+                        //textArea.setText(file_name);
+                        //display.add(label);
+                        //display.add(filename_label);
                     }
+                    //JTextArea textArea = new JTextArea();
+                    //display.add(textArea);
+
+                    //JTextArea textArea = new JTextArea();
+                    //textArea.setText("xx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\n");
+                    //JPanel p = new JPanel();
+                    // create a scrollpane, givin it the textarea as a constructor argument
+                    JScrollPane scrollPane = new JScrollPane(p);
+                    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                    scrollPane.setBounds(305, 0, 695, 700);
+                    //add(scrollPane);
+                    //scrollPane.setBounds(305, 0, 695, 700);
+                    //scrollPane.add(textArea);
+                    // now add the scrollpane to the jframe's content pane, specifically
+                    // placing it in the center of the jframe's borderlayout
+
+                    JFrame frame = new JFrame("JScrollPane Test");
+                    frame.setBounds(305, 0, 695, 700);
+
+                    frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+
+                    // make it easy to close the application
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+                    // set the frame size (you'll usually want to call frame.pack())
+                    frame.setSize(new Dimension(240, 180));
+                    // center the frame
+                    frame.setLocationRelativeTo(null);
+
+                    // make it visible to the user
+                    frame.setVisible(true);
+
 
                     display.repaint();
 
