@@ -156,7 +156,7 @@ public class Search extends JFrame {
         display.setBounds(305, 0, 695, 700);
         display.setBackground(displaypanel_color);
         display.setLayout(null);
-        add(display);
+        //add(display);
 
         //scrollbar panel
         //scrollbar_panel.setBounds(970,0,30,700);
@@ -443,7 +443,7 @@ public class Search extends JFrame {
                 flag = 0;
                 result_number.removeAll();
                 JPanel p = new JPanel();
-                p.setBounds(305, 0, 695, 700);
+                p.setBounds(305, 0, 695, 1700);
                 for (Img img : img_a) {
                     flag++;
                     Image image = null;
@@ -509,30 +509,27 @@ public class Search extends JFrame {
                     //textArea.setText("xx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\n");
                     //JPanel p = new JPanel();
                     // create a scrollpane, givin it the textarea as a constructor argument
-                    JScrollPane scrollPane = new JScrollPane(p);
-                    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-                    scrollPane.setBounds(305, 0, 695, 700);
-                    //add(scrollPane);
+
                     //scrollPane.setBounds(305, 0, 695, 700);
                     //scrollPane.add(textArea);
                     // now add the scrollpane to the jframe's content pane, specifically
                     // placing it in the center of the jframe's borderlayout
 
-                    JFrame frame = new JFrame("JScrollPane Test");
-                    frame.setBounds(305, 0, 695, 700);
+                    //JFrame frame = new JFrame("JScrollPane Test");
+                    //frame.setBounds(305, 0, 695, 700);
 
-                    frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+                    //frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
 
                     // make it easy to close the application
-                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
                     // set the frame size (you'll usually want to call frame.pack())
-                    frame.setSize(new Dimension(240, 180));
+                    //frame.setSize(new Dimension(240, 180));
                     // center the frame
-                    frame.setLocationRelativeTo(null);
+                    //frame.setLocationRelativeTo(null);
 
                     // make it visible to the user
-                    frame.setVisible(true);
+                    //frame.setVisible(true);
 
 
                     display.repaint();
@@ -551,7 +548,13 @@ public class Search extends JFrame {
                             }
                         }
                     });
+
                 }
+                JScrollPane scrollPane = new JScrollPane(p);
+                scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                scrollPane.setBounds(305, 0, 695, 700);
+                add(scrollPane);
+
                 display.setVisible(true);
                 JLabel result_text = new JLabel("found " + flag + " result(s)");
                 result_text.setFont(f);
