@@ -1,3 +1,5 @@
+package imgDB;
+
 public class User {
     //unhashed
     private String rawUsername;
