@@ -1,4 +1,4 @@
-package DB.Entities;
+package Entities;
 
 public class User {
     //unhashed

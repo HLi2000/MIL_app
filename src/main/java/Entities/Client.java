@@ -1,8 +1,5 @@
-package DB;
+package Entities;
 
-import DB.Entities.Img;
-import DB.Entities.SearchInfo;
-import DB.Entities.User;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -14,7 +11,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 /**
- * The DB.Client is used to communicate with the servlet
+ * The UI.Entities.Client is used to communicate with the servlet
  *
  * @author  Hao Li
  * @since   2021-12-05
@@ -24,7 +21,7 @@ public class Client {
     public Client(){
     }
 
-    public void login(User user) throws Exception{
+    public String login(User user) throws Exception{
         URL myURL = new URL("https://mil-servlet.herokuapp.com/login");
         HttpURLConnection conn = (HttpURLConnection) myURL.openConnection();
 
@@ -53,18 +50,18 @@ public class Client {
             String inputLine;//responded text from servlet
 
             // Read the body of the login response
-            while ((inputLine = bufferedReader.readLine()) != null) {
-                System.out.println(inputLine);
-            }
+            inputLine = bufferedReader.readLine();
             bufferedReader.close();
+
+            return inputLine;
         }
         catch (Exception e){
             System.out.println(e);
-            System.out.println("response problem");
+            return "response problem";
         }
     }
 
-    public void register(User user) throws Exception{
+    public String register(User user) throws Exception{
         URL myURL = new URL("https://mil-servlet.herokuapp.com/register");
         HttpURLConnection conn = (HttpURLConnection) myURL.openConnection();
 
@@ -91,18 +88,18 @@ public class Client {
         String inputLine;//responded text from servlet
 
         // Read the body of the login response
-        while ((inputLine = bufferedReader.readLine()) != null) {
-            System.out.println(inputLine);
-        }
+        inputLine = bufferedReader.readLine();
         bufferedReader.close();
+
+        return inputLine;
     }
 
     /**
      * The search method posts searchInfo to the servlet and return the search result
-     * of an array of DB.Entities.Img which contain all info about each image
+     * of an array of UI.Entities.Img which contain all info about each image
      *
      * @param searchInfo search info
-     * @return DB.Entities.Img[], an array of DB.Entities.Img which contain all info about each image
+     * @return UI.Entities.Img[], an array of UI.Entities.Img which contain all info about each image
      */
     public Img[] search(SearchInfo searchInfo) throws Exception{
 
@@ -144,7 +141,7 @@ public class Client {
     }
 
     /**
-     * The getThumbnail method posts a certain DB.Entities.Img to the servlet to get its thumbnail
+     * The getThumbnail method posts a certain UI.Entities.Img to the servlet to get its thumbnail
      *
      * @param img image info
      * @return InputStream of the thumbnail
@@ -176,7 +173,7 @@ public class Client {
     }
 
     /**
-     * The getImg method posts a certain DB.Entities.Img to the servlet to get its raw image
+     * The getImg method posts a certain UI.Entities.Img to the servlet to get its raw image
      *
      * @param img image info
      * @return InputStream of the raw image

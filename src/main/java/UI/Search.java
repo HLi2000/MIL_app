@@ -1,7 +1,6 @@
 package UI;
 
-import DB.Client;
-import DB.Entities.*;
+import Entities.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

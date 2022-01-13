@@ -1,12 +1,11 @@
 package UI;
 
-import java.awt.*;
+import Entities.*;
+
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import DB.Client;
-import DB.Entities.*;
 
 public class Login extends JFrame{
     //JFrame jFrame = new JFrame("Login");
@@ -100,7 +99,7 @@ public class Login extends JFrame{
                 Client c = new Client();
 
                 try{
-                    result[0] =c.login(user_login);
+                    result[0] = c.login(user_login);
                 }catch (Exception E){
                     System.out.println("failed to login");
                 }

@@ -80,7 +80,7 @@ public class Zoom {
 
     }
 /*
-    public static DB.Entities.Img scale(DB.Entities.Img raw, File destImageFile,float scale){
+    public static UI.Entities.Img scale(UI.Entities.Img raw, File destImageFile,float scale){
         try {
             //获取缩放后的宽高
             BufferedImage bimg = ImageIO.read(new File(raw.getFile_name()));

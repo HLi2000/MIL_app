@@ -1,6 +1,4 @@
-import DB.Client;
-import DB.Entities.Img;
-import DB.Entities.SearchInfo;
+import Entities.*;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -8,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Test the DB.Client with different input cases of search
+ * Test the UI.Entities.Client with different input cases of search
  *
  * downloading functions are not fully tested because they require image files
  */
