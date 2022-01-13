@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Test the UI.Entities.Client with different input cases of search
+ * Test the Client with different input cases of search
  *
  * downloading functions are not fully tested because they require image files
  */

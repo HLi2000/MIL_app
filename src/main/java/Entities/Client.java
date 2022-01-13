@@ -11,7 +11,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 /**
- * The UI.Entities.Client is used to communicate with the servlet
+ * The Entities.Client is used to communicate with the servlet
  *
  * @author  Hao Li
  * @since   2021-12-05
@@ -40,7 +40,7 @@ public class Client {
             outputStream.write(body, 0, body.length);
         }
         catch(Exception e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
 
         try {
@@ -56,7 +56,7 @@ public class Client {
             return inputLine;
         }
         catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
             return "response problem";
         }
     }
