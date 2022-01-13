@@ -116,7 +116,7 @@ public class Login extends JFrame{
                     login_status = true;
                     //return_username(user_name_return[0]);
                     setVisible(false);
-                    Search s = new Search();
+                    Search s = new Search(user_name_return[0]);
                 } else {
                     JPanel messagepanel = new JPanel();
                     messagepanel.setBounds(0, 250, 350, 50);
