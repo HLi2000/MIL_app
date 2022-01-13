@@ -21,7 +21,14 @@ public class Client {
     public Client(){
     }
 
+    /**
+     * The login method post a User object to the servlet and get result as response
+     *
+     * @param user info
+     * @return result
+     */
     public String login(User user) throws Exception{
+        //set up connection
         URL myURL = new URL("https://mil-servlet.herokuapp.com/login");
         HttpURLConnection conn = (HttpURLConnection) myURL.openConnection();
 
@@ -40,28 +47,29 @@ public class Client {
             outputStream.write(body, 0, body.length);
         }
         catch(Exception e){
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
 
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new
-                    InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
+        BufferedReader bufferedReader = new BufferedReader(new
+                InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
 
-            String inputLine;//responded text from servlet
+        String inputLine;//responded text from servlet
 
-            // Read the body of the response
-            inputLine = bufferedReader.readLine();
-            bufferedReader.close();
+        // Read the body of the response
+        inputLine = bufferedReader.readLine();
+        bufferedReader.close();
 
-            return inputLine;
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-            return "response problem";
-        }
+        return inputLine;
     }
 
+    /**
+     * The register method post a User object to the servlet and get result as response
+     *
+     * @param user info
+     * @return result
+     */
     public String register(User user) throws Exception{
+        //set up connection
         URL myURL = new URL("https://mil-servlet.herokuapp.com/register");
         HttpURLConnection conn = (HttpURLConnection) myURL.openConnection();
 
@@ -80,7 +88,7 @@ public class Client {
             outputStream.write(body, 0, body.length);
         }
         catch(Exception e){
-            System.out.println("false in body");
+            return e.getMessage();
         }
 
         BufferedReader bufferedReader = new BufferedReader(new
@@ -94,7 +102,14 @@ public class Client {
         return inputLine;
     }
 
+    /**
+     * The delete method post a User object to the servlet and get result as response
+     *
+     * @param user info
+     * @return result
+     */
     public String delete(User user) throws Exception{
+        //set up connection
         URL myURL = new URL("https://mil-servlet.herokuapp.com/delete");
         HttpURLConnection conn = (HttpURLConnection) myURL.openConnection();
 
@@ -113,7 +128,7 @@ public class Client {
             outputStream.write(body, 0, body.length);
         }
         catch(Exception e){
-            System.out.println("false in body");
+            return e.getMessage();
         }
 
         BufferedReader bufferedReader = new BufferedReader(new
@@ -129,7 +144,7 @@ public class Client {
 
     /**
      * The search method posts searchInfo to the servlet and return the search result
-     * of an array of UI.Entities.Img which contain all info about each image
+     * of an array of Img which contain all info about each image
      *
      * @param searchInfo search info
      * @return UI.Entities.Img[], an array of UI.Entities.Img which contain all info about each image
@@ -174,7 +189,7 @@ public class Client {
     }
 
     /**
-     * The getThumbnail method posts a certain UI.Entities.Img to the servlet to get its thumbnail
+     * The getThumbnail method posts a certain Img to the servlet to get its thumbnail
      *
      * @param img image info
      * @return InputStream of the thumbnail
@@ -206,7 +221,7 @@ public class Client {
     }
 
     /**
-     * The getImg method posts a certain UI.Entities.Img to the servlet to get its raw image
+     * The getImg method posts a certain Img to the servlet to get its raw image
      *
      * @param img image info
      * @return InputStream of the raw image
