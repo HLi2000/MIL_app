@@ -11,6 +11,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 
+/**
+ * The UI.search is used to provide user a panel to search and display the images filtered by the chosen conditions
+ *
+ * @author  Shiyu Wang, Yurong Chen
+ * @since   2021-12-05
+ */
+
 public class Search extends JFrame {
     Boolean light = false;
     Boolean MRI = false;
@@ -68,6 +75,10 @@ public class Search extends JFrame {
     Font f = new Font(Font.DIALOG, Font.BOLD, 16);
     Font welcome_f = new Font(Font.DIALOG, Font.BOLD, 20);
 
+
+    /**
+     * The method Search() creates a frame without any component
+     * */
     public Search() {
         super("Search");
         setBounds(250, 110, 1000, 800);
@@ -78,6 +89,11 @@ public class Search extends JFrame {
         init();
     }
 
+    /**
+     * The method init() is to put components(panel,button,combobox,textfield,label, checkbox)
+     * on the frame created before
+     *Then add listeners to the buttons and display images
+     */
     public void init() {
         JPanel fieldPanel = new JPanel();
         fieldPanel.setBackground(fieldpanel_color);
@@ -132,14 +148,15 @@ public class Search extends JFrame {
         add(fieldPanel);
 
         //display panel
-        display.setBounds(305, 0, 665, 700);
+        display.setBounds(305, 0, 695, 700);
         display.setBackground(displaypanel_color);
+        //display.setLayout();
         add(display);
 
         //scrollbar panel
-        scrollbar_panel.setBounds(970,0,30,700);
-        scrollbar_panel.setBackground(displaypanel_color);
-        add(scrollbar_panel);
+        //scrollbar_panel.setBounds(970,0,30,700);
+        //scrollbar_panel.setBackground(displaypanel_color);
+        //add(scrollbar_panel);
 
         //result number panel
         result_number.setBounds(305, 700, 695, 100);
@@ -330,10 +347,14 @@ public class Search extends JFrame {
             }
         });
 
-        JScrollBar display_scroll = new JScrollBar(JScrollBar.HORIZONTAL);
-        display_scroll.setUnitIncrement(1);
-        display_scroll.setBlockIncrement(10);
-        scrollbar_panel.add(display_scroll,BorderLayout.CENTER);
+        JScrollBar display_scroll = new JScrollBar(JScrollBar.VERTICAL);
+        display_scroll.setUnitIncrement(100);
+        display_scroll.setBlockIncrement(100);
+       //display_scroll.setOrientation(Adjustable.VERTICAL);
+        display_scroll.setBounds(0,10,30,700);
+        display_scroll.setForeground(fieldpanel_color);
+        display.add(display_scroll);
+
 
 
         confirm.addActionListener(new ActionListener() {
@@ -389,7 +410,6 @@ public class Search extends JFrame {
                     String file_name = img.getFile_name();
                     label.setText(file_name);
                     display.add(label);
-                    //display.revalidate();
 
                     label.addMouseListener(new MouseAdapter() {
                         @Override
