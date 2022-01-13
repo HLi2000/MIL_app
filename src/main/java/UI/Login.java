@@ -7,6 +7,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The UI.Login is used to let user text their username and password and log in to the search engine
+ *
+ * @author  Shiyu Wang, Yurong Chen
+ * @since   2021-12-05
+ */
+
 public class Login extends JFrame{
     //JFrame jFrame = new JFrame("Login");
 

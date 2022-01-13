@@ -13,6 +13,7 @@ import java.util.Arrays;
 
 /**
  * The UI.search is used to provide user a panel to search and display the images filtered by the chosen conditions
+ *
  * @author  Shiyu Wang, Yurong Chen
  * @since   2021-12-05
  */
