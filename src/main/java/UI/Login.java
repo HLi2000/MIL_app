@@ -93,42 +93,48 @@ public class Login extends JFrame{
         });
 
         final String[] result = {null};
+        String[] user_name_return = {null};
         confirmbtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 char[] pa = password.getPassword();
                 String pa_s = String.valueOf(pa);
                 String user_name = username.getText();
+                user_name_return[0] = user_name;
                 User user_login = new User();
                 user_login.setUsername(user_name);
                 user_login.setPassword(pa_s);
                 user_login.hashcode();
                 Client c = new Client();
 
-                try{
+                try {
                     result[0] = c.login(user_login);
-                }catch (Exception E){
+                } catch (Exception E) {
                     System.out.println("failed to login");
                 }
-                    if (result[0].equals("Login Successful")){
-                        login_status = true;
-                        setVisible(false);
-                        Search s = new Search();
-                    }else {
-                        JPanel messagepanel = new JPanel();
-                        messagepanel.setBounds(0, 250, 350, 50);
-                        messagepanel.setBackground(panel_color);
-                        JLabel error_message = new JLabel(result[0]);
-                        error_message.setBounds(0,10,400,30);
-                        Font f = new Font(Font.DIALOG, Font.BOLD, 11);
-                        error_message.setFont(f);
-                        error_message.setForeground(message_color);
-                        messagepanel.add(error_message);
-                        add(messagepanel);
-                        setVisible(true);
-                    }
+                if (result[0].equals("Login Successful")) {
+                    login_status = true;
+                    //return_username(user_name_return[0]);
+                    setVisible(false);
+                    Search s = new Search();
+                } else {
+                    JPanel messagepanel = new JPanel();
+                    messagepanel.setBounds(0, 250, 350, 50);
+                    messagepanel.setBackground(panel_color);
+                    JLabel error_message = new JLabel(result[0]);
+                    error_message.setBounds(0, 10, 400, 30);
+                    Font f = new Font(Font.DIALOG, Font.BOLD, 11);
+                    error_message.setFont(f);
+                    error_message.setForeground(message_color);
+                    messagepanel.add(error_message);
+                    add(messagepanel);
+                    setVisible(true);
+                }
 
             }
         });
+    }
+    public String return_username(){
+        return username.getText();
     }
 }
