@@ -2,10 +2,7 @@ package Entities;
 
 import com.google.gson.Gson;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -30,12 +27,11 @@ public class Client {
     public String login(User user) throws Exception{
         //set up connection
         URL myURL = new URL("https://mil-servlet.herokuapp.com/login");
-        HttpURLConnection conn = (HttpURLConnection) myURL.openConnection();
+        HttpURLConnection conn = getHttpURLConnection(myURL);
 
         //transform user to gson format
         Gson gson = new Gson();
         String jsonString = gson.toJson(user);
-        byte[] body = jsonString.getBytes(StandardCharsets.UTF_8);
 
         //set up the header
         conn.setRequestMethod("POST");
@@ -44,6 +40,7 @@ public class Client {
 
         //write the body of the request
         try (OutputStream outputStream = conn.getOutputStream()) {
+            byte[] body = jsonString.getBytes(StandardCharsets.UTF_8);
             outputStream.write(body, 0, body.length);
         }
         catch(Exception e){
@@ -52,7 +49,6 @@ public class Client {
 
         BufferedReader bufferedReader = new BufferedReader(new
                 InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
-
         String inputLine;//responded text from servlet
 
         // Read the body of the response
@@ -60,6 +56,10 @@ public class Client {
         bufferedReader.close();
 
         return inputLine;
+    }
+
+    private HttpURLConnection getHttpURLConnection(URL myURL) throws IOException {
+        return (HttpURLConnection) myURL.openConnection();
     }
 
     /**
