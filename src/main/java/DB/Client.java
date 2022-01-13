@@ -1,3 +1,8 @@
+package DB;
+
+import DB.Entities.Img;
+import DB.Entities.SearchInfo;
+import DB.Entities.User;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -9,7 +14,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 /**
- * The Client is used to communicate with the servlet
+ * The DB.Client is used to communicate with the servlet
  *
  * @author  Hao Li
  * @since   2021-12-05
@@ -94,10 +99,10 @@ public class Client {
 
     /**
      * The search method posts searchInfo to the servlet and return the search result
-     * of an array of Img which contain all info about each image
+     * of an array of DB.Entities.Img which contain all info about each image
      *
      * @param searchInfo search info
-     * @return Img[], an array of Img which contain all info about each image
+     * @return DB.Entities.Img[], an array of DB.Entities.Img which contain all info about each image
      */
     public Img[] search(SearchInfo searchInfo) throws Exception{
 
@@ -139,7 +144,7 @@ public class Client {
     }
 
     /**
-     * The getThumbnail method posts a certain Img to the servlet to get its thumbnail
+     * The getThumbnail method posts a certain DB.Entities.Img to the servlet to get its thumbnail
      *
      * @param img image info
      * @return InputStream of the thumbnail
@@ -171,7 +176,7 @@ public class Client {
     }
 
     /**
-     * The getImg method posts a certain Img to the servlet to get its raw image
+     * The getImg method posts a certain DB.Entities.Img to the servlet to get its raw image
      *
      * @param img image info
      * @return InputStream of the raw image

@@ -1,7 +1,9 @@
+package DB.Entities;
+
 import java.io.Serializable;
 
 /**
- * The SearchInfo is used to store search keywords
+ * The DB.Entities.SearchInfo is used to store search keywords
  *
  * @author  Hao Li
  * @since   2021-12-05

@@ -1,8 +1,9 @@
+import DB.Entities.Img;
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Test the Img object class
+ * Test the DB.Entities.Img object class
  */
 
 public class TestImg {

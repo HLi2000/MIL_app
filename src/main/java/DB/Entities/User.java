@@ -1,4 +1,4 @@
-package imgDB;
+package DB.Entities;
 
 public class User {
     //unhashed

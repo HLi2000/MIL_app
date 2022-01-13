@@ -1,16 +1,15 @@
 package UI;
 
-import imgDB.Client;
-import imgDB.Img;
-import imgDB.SearchInfo;
+import DB.Client;
+import DB.Entities.*;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
-import javax.imageio.ImageIO;
-import javax.swing.*;
 
 public class Search extends JFrame{
     Boolean light = false;

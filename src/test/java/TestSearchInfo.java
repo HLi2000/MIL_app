@@ -1,8 +1,9 @@
+import DB.Entities.SearchInfo;
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Test the SearchInfo object class
+ * Test the DB.Entities.SearchInfo object class
  */
 
 public class TestSearchInfo {
