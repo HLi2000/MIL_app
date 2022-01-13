@@ -1,7 +1,6 @@
+import Entities.SearchInfo;
 import org.junit.Assert;
 import org.junit.Test;
-
-import Entities.*;
 
 /**
  * Test the SearchInfo object class
