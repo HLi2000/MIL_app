@@ -76,8 +76,7 @@ public class Search extends JFrame {
     Color displaypanel_color = new Color(130, 130, 130);
     Color lightmode = new Color(255, 255, 255);
     Color result_color = new Color(238, 238, 209);
-    Color welcome_color = new Color(209, 238, 238);
-    Color welcome_lightmode = new Color(180, 205, 205);
+    Color welcome_color = new Color(193,205,205);
     Font f = new Font(Font.DIALOG, Font.BOLD, 16);
     Font welcome_f = new Font(Font.DIALOG, Font.BOLD, 20);
 
@@ -112,37 +111,35 @@ public class Search extends JFrame {
         int time = cal.get(Calendar.HOUR_OF_DAY);
 
         if (time >12 && time <20) {
-            JLabel welcome_label = new JLabel("Good afternoon!");
+            JLabel welcome_label = new JLabel("Good Afternoon!");
             welcome_label.setBounds(20, 10, 200, 50);
             welcome_label.setFont(welcome_f);
-            welcome_label.setForeground(welcome_lightmode);
             welcome_label.setForeground(welcome_color);
             fieldPanel.add(welcome_label);
-        }else if(time <= 24){
-            JLabel welcome_label = new JLabel("Good evening!");
+            light = false;
+        }else if(time >=20 ){
+            JLabel welcome_label = new JLabel("Good Evening!");
             welcome_label.setBounds(20, 10, 200, 50);
             welcome_label.setFont(welcome_f);
-            welcome_label.setForeground(welcome_lightmode);
             welcome_label.setForeground(welcome_color);
             fieldPanel.add(welcome_label);
+            light = false;
 
         }else if(time<4){
-            JLabel welcome_label = new JLabel("Good evening,");
+            JLabel welcome_label = new JLabel("Good Evening,");
             welcome_label.setBounds(20, 10, 200, 50);
             welcome_label.setFont(welcome_f);
-            welcome_label.setForeground(welcome_lightmode);
             welcome_label.setForeground(welcome_color);
             fieldPanel.add(welcome_label);
+            light = false;
         }else if (time <12 && time >4){
-            JLabel welcome_label = new JLabel("Good morning!");
+            JLabel welcome_label = new JLabel("Good Morning!");
             welcome_label.setBounds(20, 10, 200, 50);
             welcome_label.setFont(welcome_f);
-            welcome_label.setForeground(welcome_lightmode);
             welcome_label.setForeground(welcome_color);
             fieldPanel.add(welcome_label);
+            light = true;
         }
-
-
 
         region.setBounds(20, 75, 70, 50);
         modality.setBounds(20, 125, 100, 20);
@@ -160,36 +157,8 @@ public class Search extends JFrame {
         modality.setFont(f);
         patient.setFont(f);
 
-
-        //set color of text
-        region.setForeground(text_color);
-        modality.setForeground(text_color);
-        patient.setForeground(text_color);
-        r_choice.setForeground(text_color);
-        choice_MRI.setForeground(text_color);
-        choice_CT.setForeground(text_color);
-        choice_US.setForeground(text_color);
-        choice_XRay.setForeground(text_color);
-        //choice_ECG.setForeground(text_color);
-
-
-        // add components to the panel
-        fieldPanel.add(region);
-        fieldPanel.add(modality);
-        fieldPanel.add(patient);
-        fieldPanel.add(r_choice);
-        fieldPanel.add(choice_MRI);
-        fieldPanel.add(choice_CT);
-        fieldPanel.add(choice_US);
-        fieldPanel.add(choice_XRay);
-        //fieldPanel.add(choice_ECG);
-        fieldPanel.add(name);
-        add(fieldPanel);
-
         result_number.setBounds(305, 700, 695, 100);
-        result_number.setBackground(displaypanel_color);
         add(result_number);
-
 
         //line panel
         line.setBounds(301, 0, 5, 800);
@@ -198,12 +167,53 @@ public class Search extends JFrame {
 
         //confirm button and panel
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setBackground(fieldpanel_color);
         buttonPanel.setBounds(0, 700, 295, 100);
         confirm.setBounds(100, 30, 100, 40);
         buttonPanel.add(confirm);
         buttonPanel.add(mode);
+
+        if (light = false){
+            fieldPanel.setBackground(fieldpanel_color);
+            result_number.setBackground(displaypanel_color);
+            buttonPanel.setBackground(fieldpanel_color);
+            region.setForeground(text_color);
+            modality.setForeground(text_color);
+            patient.setForeground(text_color);
+            r_choice.setForeground(text_color);
+            choice_MRI.setForeground(text_color);
+            choice_CT.setForeground(text_color);
+            choice_US.setForeground(text_color);
+            choice_XRay.setForeground(text_color);
+            line.setBackground(line_color);
+        }
+        if (light = true){
+            fieldPanel.setBackground(lightmode);
+            //display.setBackground(text_color);
+            result_number.setBackground(text_color);
+            buttonPanel.setBackground(lightmode);
+            region.setForeground(fieldpanel_color);
+            modality.setForeground(fieldpanel_color);
+            patient.setForeground(fieldpanel_color);
+            r_choice.setForeground(fieldpanel_color);
+            choice_MRI.setForeground(fieldpanel_color);
+            choice_CT.setForeground(fieldpanel_color);
+            choice_US.setForeground(fieldpanel_color);
+            choice_XRay.setForeground(fieldpanel_color);
+            //choice_ECG.setForeground(fieldpanel_color);
+            line.setBackground(fieldpanel_color);
+        }
+        add(result_number);
         add(buttonPanel);
+        fieldPanel.add(region);
+        fieldPanel.add(modality);
+        fieldPanel.add(patient);
+        fieldPanel.add(r_choice);
+        fieldPanel.add(choice_MRI);
+        fieldPanel.add(choice_CT);
+        fieldPanel.add(choice_US);
+        fieldPanel.add(choice_XRay);
+        fieldPanel.add(name);
+        add(fieldPanel);
 
 
         /* add listener to the 'mode' button and let user can choose background color of the search frame*/
@@ -240,7 +250,6 @@ public class Search extends JFrame {
                     choice_CT.setForeground(text_color);
                     choice_US.setForeground(text_color);
                     choice_XRay.setForeground(text_color);
-                    //choice_ECG.setForeground(text_color);
                     line.setBackground(line_color);
                     light = false;
                 }
