@@ -479,8 +479,9 @@ public class Search extends JFrame {
 
                     p.add(label);
                     //p.add(filename_label);
-                    /*
+
                     flag++;
+                    /*
                     Image image = null;
                     try {
                         image = ImageIO.read(img.getThumbnail());
