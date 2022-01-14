@@ -156,7 +156,7 @@ public class Search extends JFrame {
         display.setBounds(305, 0, 695, 700);
         display.setBackground(displaypanel_color);
         display.setLayout(null);
-        add(display);
+        //add(display);
 
         //scrollbar panel
         //scrollbar_panel.setBounds(970,0,30,700);
@@ -443,8 +443,34 @@ public class Search extends JFrame {
                 flag = 0;
                 result_number.removeAll();
                 JPanel p = new JPanel();
-                p.setBounds(305, 0, 695, 700);
+                //p.setBounds(305, 0, 695, 700);
+                //p.setLayout(new GridLayout(15,4));
+                //p.setLayout(new FlowLayout());
+                p.setLayout(new WrapLayout());
+                //p.setSize(695, 5000);
+                //p.setLayout(new BoxLayout());
                 for (Img img : img_a) {
+                    Image image = null;
+                    try {
+                        image = ImageIO.read(img.getThumbnail());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    ImageIcon imageIcon = new ImageIcon(image);
+                    String file_name = img.getFile_name();
+                    //JLabel label = new JLabel("1",imageIcon,SwingConstants.BOTTOM);
+                    //JLabel label = new JLabel(imageIcon);
+                    JButton label = new JButton(file_name,imageIcon);
+                    label.setVerticalTextPosition(SwingConstants.BOTTOM);
+                    label.setHorizontalTextPosition(SwingConstants.CENTER);
+
+                    //JLabel filename_label = new JLabel(file_name);
+                    label.setSize(100,100);
+                    //filename_label.setSize(100,20);
+
+                    p.add(label);
+                    //p.add(filename_label);
+                    /*
                     flag++;
                     Image image = null;
                     try {
@@ -502,6 +528,8 @@ public class Search extends JFrame {
                         //display.add(label);
                         //display.add(filename_label);
                     }
+
+                     */
                     //JTextArea textArea = new JTextArea();
                     //display.add(textArea);
 
@@ -509,15 +537,14 @@ public class Search extends JFrame {
                     //textArea.setText("xx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\n");
                     //JPanel p = new JPanel();
                     // create a scrollpane, givin it the textarea as a constructor argument
-                    JScrollPane scrollPane = new JScrollPane(p);
-                    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-                    scrollPane.setBounds(305, 0, 695, 700);
+
                     //add(scrollPane);
                     //scrollPane.setBounds(305, 0, 695, 700);
                     //scrollPane.add(textArea);
                     // now add the scrollpane to the jframe's content pane, specifically
                     // placing it in the center of the jframe's borderlayout
 
+                    /*
                     JFrame frame = new JFrame("JScrollPane Test");
                     frame.setBounds(305, 0, 695, 700);
 
@@ -534,6 +561,7 @@ public class Search extends JFrame {
                     // make it visible to the user
                     frame.setVisible(true);
 
+                     */
 
                     display.repaint();
 
@@ -552,6 +580,11 @@ public class Search extends JFrame {
                         }
                     });
                 }
+                JScrollPane scrollPane = new JScrollPane(p);
+                scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                scrollPane.setBounds(305, 0, 695, 700);
+                add(scrollPane);
+
                 display.setVisible(true);
                 JLabel result_text = new JLabel("found " + flag + " result(s)");
                 result_text.setFont(f);
