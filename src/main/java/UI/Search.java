@@ -10,6 +10,7 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Calendar;
 
 /**
  * The UI.search is used to provide user a panel to search and display the images filtered by the chosen conditions
@@ -106,9 +107,43 @@ public class Search extends JFrame {
         //search_frame.setResizable(false);
         fieldPanel.setLayout(null);
         //set size of the components
-        JLabel welcome_label = new JLabel("Hello,");
 
-        welcome_label.setBounds(20, 10, 70, 50);
+        Calendar cal=Calendar.getInstance();
+        int time = cal.get(Calendar.HOUR_OF_DAY);
+
+        if (time >12 && time <20) {
+            JLabel welcome_label = new JLabel("Good afternoon!");
+            welcome_label.setBounds(20, 10, 200, 50);
+            welcome_label.setFont(welcome_f);
+            welcome_label.setForeground(welcome_lightmode);
+            welcome_label.setForeground(welcome_color);
+            fieldPanel.add(welcome_label);
+        }else if(time <= 24){
+            JLabel welcome_label = new JLabel("Good evening!");
+            welcome_label.setBounds(20, 10, 200, 50);
+            welcome_label.setFont(welcome_f);
+            welcome_label.setForeground(welcome_lightmode);
+            welcome_label.setForeground(welcome_color);
+            fieldPanel.add(welcome_label);
+
+        }else if(time<4){
+            JLabel welcome_label = new JLabel("Good evening,");
+            welcome_label.setBounds(20, 10, 200, 50);
+            welcome_label.setFont(welcome_f);
+            welcome_label.setForeground(welcome_lightmode);
+            welcome_label.setForeground(welcome_color);
+            fieldPanel.add(welcome_label);
+        }else if (time <12 && time >4){
+            JLabel welcome_label = new JLabel("Good morning!");
+            welcome_label.setBounds(20, 10, 200, 50);
+            welcome_label.setFont(welcome_f);
+            welcome_label.setForeground(welcome_lightmode);
+            welcome_label.setForeground(welcome_color);
+            fieldPanel.add(welcome_label);
+        }
+
+
+
         region.setBounds(20, 75, 70, 50);
         modality.setBounds(20, 125, 100, 20);
         patient.setBounds(20, 215, 130, 50);
@@ -124,7 +159,7 @@ public class Search extends JFrame {
         region.setFont(f);
         modality.setFont(f);
         patient.setFont(f);
-        welcome_label.setFont(welcome_f);
+
 
         //set color of text
         region.setForeground(text_color);
@@ -136,7 +171,7 @@ public class Search extends JFrame {
         choice_US.setForeground(text_color);
         choice_XRay.setForeground(text_color);
         //choice_ECG.setForeground(text_color);
-        welcome_label.setForeground(welcome_color);
+
 
         // add components to the panel
         fieldPanel.add(region);
@@ -149,21 +184,8 @@ public class Search extends JFrame {
         fieldPanel.add(choice_XRay);
         //fieldPanel.add(choice_ECG);
         fieldPanel.add(name);
-        fieldPanel.add(welcome_label);
         add(fieldPanel);
 
-        //display panel
-        //display.setBounds(305, 0, 695, 700);
-        //display.setBackground(displaypanel_color);
-        //display.setLayout(null);
-        //add(display);
-
-        //scrollbar panel
-        //scrollbar_panel.setBounds(970,0,30,700);
-        //scrollbar_panel.setBackground(displaypanel_color);
-        //add(scrollbar_panel);
-
-        //result number panel
         result_number.setBounds(305, 700, 695, 100);
         result_number.setBackground(displaypanel_color);
         add(result_number);
@@ -193,7 +215,6 @@ public class Search extends JFrame {
                     //display.setBackground(text_color);
                     result_number.setBackground(text_color);
                     buttonPanel.setBackground(lightmode);
-                    welcome_label.setForeground(welcome_lightmode);
                     region.setForeground(fieldpanel_color);
                     modality.setForeground(fieldpanel_color);
                     patient.setForeground(fieldpanel_color);
@@ -211,7 +232,6 @@ public class Search extends JFrame {
                     //display.setBackground(displaypanel_color);
                     result_number.setBackground(displaypanel_color);
                     buttonPanel.setBackground(fieldpanel_color);
-                    welcome_label.setForeground(welcome_color);
                     region.setForeground(text_color);
                     modality.setForeground(text_color);
                     patient.setForeground(text_color);
