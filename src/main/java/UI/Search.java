@@ -10,6 +10,7 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Calendar;
 
 /**
  * The UI.search is used to provide user a panel to search and display the images filtered by the chosen conditions
@@ -24,7 +25,7 @@ public class Search extends JFrame {
     Boolean CT = false;
     Boolean US = false;
     Boolean XRay = false;
-    //Boolean ECG = false;
+    Boolean ECG = false;
 
     public static int flag = 0;
 
@@ -46,8 +47,8 @@ public class Search extends JFrame {
     JCheckBox choice_CT = new JCheckBox("CT");
     JCheckBox choice_US = new JCheckBox("Ultrasound");
     JCheckBox choice_XRay = new JCheckBox("XRay");
-    //JCheckBox choice_ECG = new JCheckBox("ECG");
-    String[] modality_choice = new String[4];
+    JCheckBox choice_ECG = new JCheckBox("ECG");
+    String[] modality_choice = new String[5];
 
 
     // Patient name
@@ -60,11 +61,11 @@ public class Search extends JFrame {
     //private JPanel display = new JPanel();
     //JTextArea textArea = new JTextArea();
     //textArea.setText("abcdeaaa");
-    //display.add(textArea);
-    //private JPanel display = new JPanel();
+        //display.add(textArea);
+    private JPanel display = new JPanel();
 
     private JPanel result_number = new JPanel();
-    //private JPanel scrollbar_panel = new JPanel();
+    private JPanel scrollbar_panel = new JPanel();
     //JLabel hello_lbel = new JLabel();
 
 
@@ -106,9 +107,43 @@ public class Search extends JFrame {
         //search_frame.setResizable(false);
         fieldPanel.setLayout(null);
         //set size of the components
-        JLabel welcome_label = new JLabel("Hello,");
+        Calendar cal=Calendar.getInstance();
+        int time = cal.get(Calendar.HOUR_OF_DAY);
+        //System.out.println(time);
 
-        welcome_label.setBounds(20, 10, 70, 50);
+        if (time >12 && time <20) {
+            JLabel welcome_label = new JLabel("Good afternoon!");
+            welcome_label.setBounds(20, 10, 200, 50);
+            welcome_label.setFont(welcome_f);
+            welcome_label.setForeground(welcome_lightmode);
+            welcome_label.setForeground(welcome_color);
+            fieldPanel.add(welcome_label);
+        }else if(time <= 24){
+            JLabel welcome_label = new JLabel("Good evening!");
+            welcome_label.setBounds(20, 10, 200, 50);
+            welcome_label.setFont(welcome_f);
+            welcome_label.setForeground(welcome_lightmode);
+            welcome_label.setForeground(welcome_color);
+            fieldPanel.add(welcome_label);
+
+        }else if(time<4){
+            JLabel welcome_label = new JLabel("Good evening,");
+            welcome_label.setBounds(20, 10, 200, 50);
+            welcome_label.setFont(welcome_f);
+            welcome_label.setForeground(welcome_lightmode);
+            welcome_label.setForeground(welcome_color);
+            fieldPanel.add(welcome_label);
+        }else if (time <12 && time >4){
+            JLabel welcome_label = new JLabel("Good morning!");
+            welcome_label.setBounds(20, 10, 200, 50);
+            welcome_label.setFont(welcome_f);
+            welcome_label.setForeground(welcome_lightmode);
+            welcome_label.setForeground(welcome_color);
+            fieldPanel.add(welcome_label);
+        }
+
+
+
         region.setBounds(20, 75, 70, 50);
         modality.setBounds(20, 125, 100, 20);
         patient.setBounds(20, 215, 130, 50);
@@ -118,13 +153,13 @@ public class Search extends JFrame {
         choice_CT.setBounds(90, 155, 50, 20);
         choice_US.setBounds(150, 155, 105, 20);
         choice_XRay.setBounds(20, 185, 68, 20);
-        //choice_ECG.setBounds(90, 185, 60, 20);
+        choice_ECG.setBounds(90, 185, 60, 20);
 
         // set font
         region.setFont(f);
         modality.setFont(f);
         patient.setFont(f);
-        welcome_label.setFont(welcome_f);
+
 
         //set color of text
         region.setForeground(text_color);
@@ -135,8 +170,8 @@ public class Search extends JFrame {
         choice_CT.setForeground(text_color);
         choice_US.setForeground(text_color);
         choice_XRay.setForeground(text_color);
-        //choice_ECG.setForeground(text_color);
-        welcome_label.setForeground(welcome_color);
+        choice_ECG.setForeground(text_color);
+
 
         // add components to the panel
         fieldPanel.add(region);
@@ -147,15 +182,15 @@ public class Search extends JFrame {
         fieldPanel.add(choice_CT);
         fieldPanel.add(choice_US);
         fieldPanel.add(choice_XRay);
-        //fieldPanel.add(choice_ECG);
+        fieldPanel.add(choice_ECG);
         fieldPanel.add(name);
-        fieldPanel.add(welcome_label);
+
         add(fieldPanel);
 
         //display panel
-        //display.setBounds(305, 0, 695, 700);
-        //display.setBackground(displaypanel_color);
-        //display.setLayout(null);
+        display.setBounds(305, 0, 695, 700);
+        display.setBackground(displaypanel_color);
+        display.setLayout(null);
         //add(display);
 
         //scrollbar panel
@@ -190,10 +225,10 @@ public class Search extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (!light) {
                     fieldPanel.setBackground(lightmode);
-                    //display.setBackground(text_color);
+                    display.setBackground(text_color);
                     result_number.setBackground(text_color);
                     buttonPanel.setBackground(lightmode);
-                    welcome_label.setForeground(welcome_lightmode);
+
                     region.setForeground(fieldpanel_color);
                     modality.setForeground(fieldpanel_color);
                     patient.setForeground(fieldpanel_color);
@@ -202,16 +237,15 @@ public class Search extends JFrame {
                     choice_CT.setForeground(fieldpanel_color);
                     choice_US.setForeground(fieldpanel_color);
                     choice_XRay.setForeground(fieldpanel_color);
-                    //choice_ECG.setForeground(fieldpanel_color);
+                    choice_ECG.setForeground(fieldpanel_color);
                     line.setBackground(fieldpanel_color);
 
                     light = true;
                 } else {
                     fieldPanel.setBackground(fieldpanel_color);
-                    //display.setBackground(displaypanel_color);
+                    display.setBackground(displaypanel_color);
                     result_number.setBackground(displaypanel_color);
                     buttonPanel.setBackground(fieldpanel_color);
-                    welcome_label.setForeground(welcome_color);
                     region.setForeground(text_color);
                     modality.setForeground(text_color);
                     patient.setForeground(text_color);
@@ -220,7 +254,7 @@ public class Search extends JFrame {
                     choice_CT.setForeground(text_color);
                     choice_US.setForeground(text_color);
                     choice_XRay.setForeground(text_color);
-                    //choice_ECG.setForeground(text_color);
+                    choice_ECG.setForeground(text_color);
                     line.setBackground(line_color);
                     light = false;
                 }
@@ -337,7 +371,7 @@ public class Search extends JFrame {
                 }
             }
         });
-/*
+
         choice_ECG.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent itemEvent) {
@@ -351,17 +385,14 @@ public class Search extends JFrame {
                 }
             }
         });
-
- */
 /*
         JScrollBar display_scroll = new JScrollBar(JScrollBar.VERTICAL);
         display_scroll.setBounds(655,0,20,800);
         display_scroll.setForeground(fieldpanel_color);
-
- */
         //display_scroll.setLayout();
-        //display.add(display_scroll);
-        //display.setLayout(new FlowLayout());
+        display.add(display_scroll);
+
+*/      //display.setLayout(new FlowLayout());
 
         /*JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(305, 0, 695, 700);
@@ -375,7 +406,9 @@ public class Search extends JFrame {
         //final JPanel panel = new JPanel();
         //panel.setBorder(BorderFactory.createLineBorder(Color.red));
         //panel.setPreferredSize(new Dimension(800, 600));
+
         //final JScrollPane scroll = new JScrollPane(panel);
+
         //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //setLayout(new BorderLayout());
         add(scrollPane);
@@ -383,7 +416,7 @@ public class Search extends JFrame {
         //setVisible(true);
         */
 
-        //JTextArea textArea = new JTextArea();
+        JTextArea textArea = new JTextArea();
         //display.add(textArea);
 
 /*
@@ -396,31 +429,25 @@ public class Search extends JFrame {
         // placing it in the center of the jframe's borderlayout
         JFrame frame = new JFrame("JScrollPane Test");
         frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+
         // make it easy to close the application
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         // set the frame size (you'll usually want to call frame.pack())
         frame.setSize(new Dimension(240, 180));
         // center the frame
         frame.setLocationRelativeTo(null);
+
         // make it visible to the user
         frame.setVisible(true);
 */
-        JPanel p = new JPanel();
-        p.setLayout(new WrapLayout());
-        //p.setBounds(305, 0, 695, 700);
-        JScrollPane scrollPane = new JScrollPane(p);
 
         confirm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
-                //display.removeAll();
-                //display.revalidate();
-                //display.repaint();
-                p.removeAll();
-                //scrollPane.removeAll();
-                p.revalidate();
-                p.repaint();
+                display.removeAll();
+                display.revalidate();
+                display.repaint();
 
                 patient_name = name.getText();
                 try {
@@ -449,13 +476,11 @@ public class Search extends JFrame {
 
                 flag = 0;
                 result_number.removeAll();
-                result_number.revalidate();
-                result_number.repaint();
-                //**JPanel p = new JPanel();
+                JPanel p = new JPanel();
                 //p.setBounds(305, 0, 695, 700);
                 //p.setLayout(new GridLayout(15,4));
                 //p.setLayout(new FlowLayout());
-                //**p.setLayout(new WrapLayout());
+                p.setLayout(new WrapLayout());
                 //p.setSize(695, 5000);
                 //p.setLayout(new BoxLayout());
                 for (Img img : img_a) {
@@ -488,6 +513,7 @@ public class Search extends JFrame {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+
                     ImageIcon imageIcon = new ImageIcon(image);
                     JLabel label = new JLabel(imageIcon);
                     String file_name = img.getFile_name();
@@ -537,6 +563,7 @@ public class Search extends JFrame {
                         //display.add(label);
                         //display.add(filename_label);
                     }
+
                      */
                     //JTextArea textArea = new JTextArea();
                     //display.add(textArea);
@@ -555,18 +582,23 @@ public class Search extends JFrame {
                     /*
                     JFrame frame = new JFrame("JScrollPane Test");
                     frame.setBounds(305, 0, 695, 700);
+
                     frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+
                     // make it easy to close the application
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
                     // set the frame size (you'll usually want to call frame.pack())
                     frame.setSize(new Dimension(240, 180));
                     // center the frame
                     frame.setLocationRelativeTo(null);
+
                     // make it visible to the user
                     frame.setVisible(true);
+
                      */
 
-                    //display.repaint();
+                    display.repaint();
 
 
                     label.addMouseListener(new MouseAdapter() {
@@ -583,12 +615,12 @@ public class Search extends JFrame {
                         }
                     });
                 }
-                //**JScrollPane scrollPane = new JScrollPane(p);
+                JScrollPane scrollPane = new JScrollPane(p);
                 scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
                 scrollPane.setBounds(305, 0, 695, 700);
                 add(scrollPane);
 
-                //display.setVisible(true);
+                display.setVisible(true);
                 JLabel result_text = new JLabel("found " + flag + " result(s)");
                 result_text.setFont(f);
                 result_text.setForeground(result_color);
