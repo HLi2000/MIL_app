@@ -22,8 +22,8 @@ public class Display {
         zoom.setLayout(new BorderLayout());
         zoom.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         zoom.setVisible(true);
-        JPanel imagepanel = init(image);
-        zoom.add(imagepanel);
+        JPanel imagePanel = init(image);
+        zoom.add(imagePanel);
         zoom.pack();
     }
 
@@ -31,10 +31,10 @@ public class Display {
         int w = image.getWidth(null)*10;
         int h = image.getHeight(null)*10;
         JLabel label = new JLabel(new ImageIcon(image));
-        JPanel imagepanel = new JPanel();
-        imagepanel.add(label);
+        JPanel imagePanel = new JPanel();
+        imagePanel.add(label);
 
-        return imagepanel;
+        return imagePanel;
 
     }
 
