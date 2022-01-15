@@ -1,16 +1,14 @@
 package UI;
 
 import Entities.*;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
-import UI.Login;
+import java.util.Calendar;
+import java.util.Objects;
 
 /**
  * The UI.search is used to provide user a panel to search and display the images filtered by the chosen conditions
@@ -20,25 +18,19 @@ import UI.Login;
  */
 
 public class Search extends JFrame {
-    Boolean light = false;
-    Boolean MRI = false;
-    Boolean CT = false;
-    Boolean US = false;
-    Boolean XRay = false;
-    Boolean ECG = false;
 
-    public static int flag = 0;
+    Boolean light = false; // mode
+    public static int flag = 0; //number of images shown
 
-    /* settings of basic components*/
-    private Container search_c = getContentPane();
     JButton confirm = new JButton("confirm");
     JButton mode = new JButton("mode");
-
+    JPanel line = new JPanel();
+    private final JPanel numberPanel = new JPanel();
 
     // Region
     JLabel region = new JLabel("Region");
     String[] choice_r = new String[]{"All", "Heart", "Arm", "Body", "Head", "Leg"};
-    JComboBox r_choice = new JComboBox(choice_r);
+    JComboBox<String> r_choice = new JComboBox<>(choice_r);
     String[] region_choice = new String[5];
 
     // Modality
@@ -47,42 +39,35 @@ public class Search extends JFrame {
     JCheckBox choice_CT = new JCheckBox("CT");
     JCheckBox choice_US = new JCheckBox("Ultrasound");
     JCheckBox choice_XRay = new JCheckBox("XRay");
-    JCheckBox choice_ECG = new JCheckBox("ECG");
-    String[] modality_choice = new String[5];
-
+    String[] modality_choice = new String[4];
 
     // Patient name
     JLabel patient = new JLabel("Patient Name:");
-    private JTextField name = new JTextField();
-    private String patient_name = new String();
-    private String patient_name_cap = new String();
+    private final JTextField name = new JTextField();
+    private String patient_name = "";
+    private String patient_name_cap = "";
 
-    JPanel line = new JPanel();
-    private JPanel display = new JPanel();
-    private JPanel result_number = new JPanel();
-    //JLabel hello_lbel = new JLabel();
-
-
-    // Colors
+    // Colors and fonts
     Color line_color = new Color(190, 190, 190);
     Color fieldpanel_color = new Color(54, 54, 54);
     Color text_color = new Color(181, 181, 181);
     Color displaypanel_color = new Color(130, 130, 130);
     Color lightmode = new Color(255, 255, 255);
-    Color result_color = new Color(238, 238, 209);
-    Color welcome_color = new Color(209, 238, 238);
-    Color welcome_lightmode = new Color(180, 205, 205);
+    Color result_color = new Color(112, 128, 144);
+    Color welcome_color = new Color(193,205,205);
+    Color welcome_color_light = new Color(42,120,165);
     Font f = new Font(Font.DIALOG, Font.BOLD, 16);
     Font welcome_f = new Font(Font.DIALOG, Font.BOLD, 20);
-
 
     /**
      * The method Search() creates a frame without any component
      * */
     public Search() {
         super("Search");
-        setBounds(250, 110, 1000, 800);
-
+        setBounds(300, 70, 900, 717);
+        setMinimumSize(new Dimension(750,700));
+        /* settings of basic components */
+        Container search_c = getContentPane();
         search_c.setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -94,47 +79,101 @@ public class Search extends JFrame {
      * on the frame created before
      *Then add listeners to the buttons and display images
      */
-    public void init()  {
+    public void init() {
+
+        // top left search panel initialize
         JPanel fieldPanel = new JPanel();
         fieldPanel.setBackground(fieldpanel_color);
-        fieldPanel.setBounds(0, 0, 295, 700);
-        //search_frame.setResizable(false);
+        fieldPanel.setBounds(0,0,295,getHeight()-150);
         fieldPanel.setLayout(null);
-        //set size of the components
-        //String hello_username =
-        JLabel welcome_label = new JLabel("Hello,");
 
-        welcome_label.setBounds(20, 10, 70, 50);
+        // middle left number of images panel
+        numberPanel.setBackground(fieldpanel_color);
+        numberPanel.setBounds(0, getHeight()-150, 295, 50);
+
+        // get system time to set relevant welcome label
+        Calendar cal=Calendar.getInstance();
+        int time = cal.get(Calendar.HOUR_OF_DAY);
+        JLabel welcome_label = new JLabel();
+        welcome_label.setBounds(20, 10, 200, 50);
+        welcome_label.setFont(welcome_f);
+        if (time>4 && time<12){
+            welcome_label.setText("Good Morning!");
+            welcome_label.setForeground(welcome_color_light);
+            fieldPanel.add(welcome_label);
+            light = true;
+        }else if(time>=12 && time<20){
+            welcome_label.setText("Good Afternoon!");
+            welcome_label.setForeground(welcome_color);
+            fieldPanel.add(welcome_label);
+            light = false;
+        }else{
+            welcome_label.setText("Good Evening!");
+            welcome_label.setForeground(welcome_color);
+            fieldPanel.add(welcome_label);
+            light = false;
+        }
+
+        // set bounds to components in top left search panel
         region.setBounds(20, 75, 70, 50);
-        modality.setBounds(20, 125, 100, 20);
+        modality.setBounds(20, 133, 100, 20);
         patient.setBounds(20, 215, 130, 50);
-        name.setBounds(20, 255, 200, 30);
-        r_choice.setBounds(100, 85, 150, 40);
-        choice_MRI.setBounds(20, 155, 55, 20);
-        choice_CT.setBounds(90, 155, 50, 20);
-        choice_US.setBounds(150, 155, 105, 20);
-        choice_XRay.setBounds(20, 185, 68, 20);
-        choice_ECG.setBounds(90, 185, 60, 20);
+        name.setBounds(20, 255, 215, 30);
+        r_choice.setBounds(100, 83, 135, 35);
+        choice_MRI.setBounds(20, 163, 55, 20);
+        choice_CT.setBounds(90, 163, 50, 20);
+        choice_US.setBounds(150, 163, 105, 20);
+        choice_XRay.setBounds(20, 193, 68, 20);
 
         // set font
         region.setFont(f);
         modality.setFont(f);
         patient.setFont(f);
-        welcome_label.setFont(welcome_f);
 
-        //set color of text
-        region.setForeground(text_color);
-        modality.setForeground(text_color);
-        patient.setForeground(text_color);
-        r_choice.setForeground(text_color);
-        choice_MRI.setForeground(text_color);
-        choice_CT.setForeground(text_color);
-        choice_US.setForeground(text_color);
-        choice_XRay.setForeground(text_color);
-        choice_ECG.setForeground(text_color);
-        welcome_label.setForeground(welcome_color);
+        // line panel
+        line.setBounds(301, 0, 5, 800);
+        line.setBackground(line_color);
+        add(line);
 
-        // add components to the panel
+        // confirm button and panel
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBounds(0, getHeight()-100, 295, 100);
+        confirm.setBounds(100, 30, 100, 40);
+        buttonPanel.add(confirm);
+        buttonPanel.add(mode);
+
+        // mode color
+        if (!light){
+            getContentPane().setBackground(displaypanel_color);
+            fieldPanel.setBackground(fieldpanel_color);
+            numberPanel.setBackground(fieldpanel_color);
+            buttonPanel.setBackground(fieldpanel_color);
+            region.setForeground(text_color);
+            modality.setForeground(text_color);
+            patient.setForeground(text_color);
+            r_choice.setForeground(text_color);
+            choice_MRI.setForeground(text_color);
+            choice_CT.setForeground(text_color);
+            choice_US.setForeground(text_color);
+            choice_XRay.setForeground(text_color);
+            line.setBackground(line_color);
+        }else{
+            getContentPane().setBackground(line_color);
+            fieldPanel.setBackground(lightmode);
+            numberPanel.setBackground(lightmode);
+            buttonPanel.setBackground(lightmode);
+            region.setForeground(fieldpanel_color);
+            modality.setForeground(fieldpanel_color);
+            patient.setForeground(fieldpanel_color);
+            r_choice.setForeground(fieldpanel_color);
+            choice_MRI.setForeground(fieldpanel_color);
+            choice_CT.setForeground(fieldpanel_color);
+            choice_US.setForeground(fieldpanel_color);
+            choice_XRay.setForeground(fieldpanel_color);
+            line.setBackground(fieldpanel_color);
+        }
+
+        // add components to top left search panel
         fieldPanel.add(region);
         fieldPanel.add(modality);
         fieldPanel.add(patient);
@@ -143,48 +182,126 @@ public class Search extends JFrame {
         fieldPanel.add(choice_CT);
         fieldPanel.add(choice_US);
         fieldPanel.add(choice_XRay);
-        fieldPanel.add(choice_ECG);
         fieldPanel.add(name);
-        fieldPanel.add(welcome_label);
+
+        //add left panels to frame
         add(fieldPanel);
-
-        //display panel
-        display.setBounds(305, 0, 695, 700);
-        display.setBackground(displaypanel_color);
-        display.setLayout(null);
-        add(display);
-
-        //result number panel
-        result_number.setBounds(305, 700, 695, 100);
-        result_number.setBackground(displaypanel_color);
-        add(result_number);
-
-
-        //line panel
-        line.setBounds(301, 0, 5, 800);
-        line.setBackground(line_color);
-        add(line);
-
-        //confirm button and panel
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setBackground(fieldpanel_color);
-        buttonPanel.setBounds(0, 700, 295, 100);
-        confirm.setBounds(100, 30, 100, 40);
-        buttonPanel.add(confirm);
-        buttonPanel.add(mode);
+        add(numberPanel);
         add(buttonPanel);
 
+        // region choice initialize
+        region_choice[0] = "Head";
+        region_choice[1] = "Heart";
+        region_choice[2] = "Arm";
+        region_choice[3] = "Body";
+        region_choice[4] = "Leg";
 
-        /* add listener to the 'mode' button and let user can choose background color of the search frame*/
+        /* add listener to 'region choice' combobox to get the selected region */
+        r_choice.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    if (Objects.equals(Objects.requireNonNull(r_choice.getSelectedItem()).toString(), "All")) {
+                        region_choice[0] = "Head";
+                        region_choice[1] = "Heart";
+                        region_choice[2] = "Arm";
+                        region_choice[3] = "Body";
+                        region_choice[4] = "Leg";
+                    } else if (Objects.equals(r_choice.getSelectedItem().toString(), "Head")) {
+                        region_choice[0] = "Head";
+                        region_choice[1] = null;
+                        region_choice[2] = null;
+                        region_choice[3] = null;
+                        region_choice[4] = null;
+                    } else if (Objects.equals(r_choice.getSelectedItem().toString(), "Heart")) {
+                        region_choice[0] = "Heart";
+                        region_choice[1] = null;
+                        region_choice[2] = null;
+                        region_choice[3] = null;
+                        region_choice[4] = null;
+                    } else if (Objects.equals(r_choice.getSelectedItem().toString(), "Arm")) {
+                        region_choice[0] = "Arm";
+                        region_choice[1] = null;
+                        region_choice[2] = null;
+                        region_choice[3] = null;
+                        region_choice[4] = null;
+                    } else if (Objects.equals(r_choice.getSelectedItem().toString(), "Body")) {
+                        region_choice[0] = "Body";
+                        region_choice[1] = null;
+                        region_choice[2] = null;
+                        region_choice[3] = null;
+                        region_choice[4] = null;
+                    } else if (Objects.equals(r_choice.getSelectedItem().toString(), "Leg")) {
+                        region_choice[0] = "Leg";
+                        region_choice[1] = null;
+                        region_choice[2] = null;
+                        region_choice[3] = null;
+                        region_choice[4] = null;
+                    }
+                }
+            }
+        });
+
+        /* add listeners to 'modality choice' checkboxes */
+        choice_MRI.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(choice_MRI.isSelected()){
+                    modality_choice[0] = "MRI";
+                }else{
+                    modality_choice[0] = null;
+                }
+            }
+        });
+        choice_CT.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(choice_CT.isSelected()){
+                    modality_choice[1] = "CT";
+                }else{
+                    modality_choice[1] = null;
+                }
+            }
+        });
+        choice_US.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(choice_US.isSelected()){
+                    modality_choice[2] = "Ultrasound";
+                }else{
+                    modality_choice[2] = null;
+                }
+            }
+        });
+        choice_XRay.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(choice_XRay.isSelected()){
+                    modality_choice[3] = "X Ray";
+                }else{
+                    modality_choice[3] = null;
+                }
+            }
+        });
+
+        // right panel for images searched
+        JPanel p = new JPanel();
+        p.setLayout(new WrapLayout());
+
+        // right scroll panel that includes p panel
+        JScrollPane scrollPane = new JScrollPane(p);
+        scrollPane.setBounds(305,0,getWidth()-314,getHeight()-27);
+
+        /* add listener to the 'mode' button and let user choose background color of the search frame */
         mode.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!light) {
+                    getContentPane().setBackground(line_color);
                     fieldPanel.setBackground(lightmode);
-                    display.setBackground(text_color);
-                    result_number.setBackground(text_color);
+                    numberPanel.setBackground(lightmode);
+                    p.setBackground(line_color);
                     buttonPanel.setBackground(lightmode);
-                    welcome_label.setForeground(welcome_lightmode);
                     region.setForeground(fieldpanel_color);
                     modality.setForeground(fieldpanel_color);
                     patient.setForeground(fieldpanel_color);
@@ -193,16 +310,15 @@ public class Search extends JFrame {
                     choice_CT.setForeground(fieldpanel_color);
                     choice_US.setForeground(fieldpanel_color);
                     choice_XRay.setForeground(fieldpanel_color);
-                    choice_ECG.setForeground(fieldpanel_color);
                     line.setBackground(fieldpanel_color);
-
+                    welcome_label.setForeground(welcome_color_light);
                     light = true;
                 } else {
+                    getContentPane().setBackground(displaypanel_color);
                     fieldPanel.setBackground(fieldpanel_color);
-                    display.setBackground(displaypanel_color);
-                    result_number.setBackground(displaypanel_color);
+                    numberPanel.setBackground(fieldpanel_color);
+                    p.setBackground(displaypanel_color);
                     buttonPanel.setBackground(fieldpanel_color);
-                    welcome_label.setForeground(welcome_color);
                     region.setForeground(text_color);
                     modality.setForeground(text_color);
                     patient.setForeground(text_color);
@@ -211,147 +327,29 @@ public class Search extends JFrame {
                     choice_CT.setForeground(text_color);
                     choice_US.setForeground(text_color);
                     choice_XRay.setForeground(text_color);
-                    choice_ECG.setForeground(text_color);
                     line.setBackground(line_color);
+                    welcome_label.setForeground(welcome_color);
                     light = false;
                 }
             }
         });
 
-        region_choice[0] = "Head";
-        region_choice[1] = "Heart";
-        region_choice[2] = "Arm";
-        region_choice[3] = "Body";
-        region_choice[4] = "Leg";
-
-        r_choice.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    if (r_choice.getSelectedItem().toString() == "All") {
-                        region_choice[0] = "Head";
-                        region_choice[1] = "Heart";
-                        region_choice[2] = "Arm";
-                        region_choice[3] = "Body";
-                        region_choice[4] = "Leg";
-                        System.out.println("r_choice1 " + r_choice.getSelectedItem().toString());
-                    } else if (r_choice.getSelectedItem().toString() == "Head") {
-                        region_choice[0] = "Head";
-                        region_choice[1] = null;
-                        region_choice[2] = null;
-                        region_choice[3] = null;
-                        region_choice[4] = null;
-                        System.out.println("r_choice2 " + region_choice[0]);
-                    } else if (r_choice.getSelectedItem().toString() == "Heart") {
-                        region_choice[0] = "Heart";
-                        region_choice[1] = null;
-                        region_choice[2] = null;
-                        region_choice[3] = null;
-                        region_choice[4] = null;
-                        System.out.println("r_choice3 " + region_choice[0]);
-                    } else if (r_choice.getSelectedItem().toString() == "Arm") {
-                        region_choice[0] = "Arm";
-                        region_choice[1] = null;
-                        region_choice[2] = null;
-                        region_choice[3] = null;
-                        region_choice[4] = null;
-                        System.out.println("r_choice4 " + region_choice[0]);
-                    } else if (r_choice.getSelectedItem().toString() == "Body") {
-                        region_choice[0] = "Body";
-                        region_choice[1] = null;
-                        region_choice[2] = null;
-                        region_choice[3] = null;
-                        region_choice[4] = null;
-                        System.out.println("r_choice5 " + region_choice[0]);
-                    } else if (r_choice.getSelectedItem().toString() == "Leg") {
-                        region_choice[0] = "Leg";
-                        region_choice[1] = null;
-                        region_choice[2] = null;
-                        region_choice[3] = null;
-                        region_choice[4] = null;
-                        System.out.println("r_choice6 " + region_choice[0]);
-                    }
-                }
-            }
-        });
-
-        choice_MRI.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent itemEvent) {
-                if (!MRI) {
-                    modality_choice[0] = "MRI";
-                    System.out.println("modality " + modality_choice[0]);
-                    MRI = true;
-                } else {
-                    modality_choice[0] = null;
-                    MRI = false;
-                }
-            }
-        });
-        choice_CT.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent itemEvent) {
-                if (!CT) {
-                    modality_choice[1] = "CT";
-                    System.out.println("modality " + modality_choice[1]);
-                    CT = true;
-                } else {
-                    modality_choice[1] = null;
-                    CT = false;
-                }
-            }
-        });
-        choice_US.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent itemEvent) {
-                if (!US) {
-                    modality_choice[2] = "Ultrasound";
-                    System.out.println("modality " + modality_choice[2]);
-                    US = true;
-                } else {
-                    modality_choice[2] = null;
-                    US = false;
-                }
-            }
-        });
-
-        choice_XRay.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent itemEvent) {
-                if (!XRay) {
-                    modality_choice[3] = "X Ray";
-                    System.out.println("modality " + modality_choice[3]);
-                    XRay = true;
-                } else {
-                    modality_choice[3] = null;
-                    XRay = false;
-                }
-            }
-        });
-
-        choice_ECG.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent itemEvent) {
-                if (!ECG) {
-                    modality_choice[4] = "ECG";
-                    System.out.println("modality " + modality_choice[4]);
-                    ECG = true;
-                } else {
-                    modality_choice[4] = null;
-                    ECG = false;
-                }
-            }
-        });
-
-
-
+        /* add listener to 'confirm' button to search required image(s) */
         confirm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                display.removeAll();
-                display.revalidate();
-                display.repaint();
 
+                //reset numbers of images panel
+                numberPanel.removeAll();
+                numberPanel.revalidate();
+                numberPanel.repaint();
+
+                //reset p panel displaying images
+                p.removeAll();
+                p.revalidate();
+                p.repaint();
+
+                // get patient name
                 patient_name = name.getText();
                 try {
                     patient_name = patient_name.trim();
@@ -361,15 +359,14 @@ public class Search extends JFrame {
                     patient_name_cap = "";
                 }
 
-                System.out.println("region_choice " + Arrays.toString(region_choice));
-                System.out.println("modality_choice " + Arrays.toString(modality_choice));
-                System.out.println("patient_name_cap " + patient_name_cap);
+                //send search information
                 SearchInfo searchInfo = new SearchInfo(modality_choice, region_choice, patient_name_cap);
 
-                Client cl = new Client();
+                Client cl = new Client(); // initialize client to request images
 
-                Img[] img_a;
+                Img[] img_a; // container for images
 
+                // store images searched
                 try {
                     img_a = cl.search(searchInfo);
                 } catch (Exception e) {
@@ -377,101 +374,69 @@ public class Search extends JFrame {
                     img_a = new Img[]{};
                 }
 
-                flag = 0;
-                result_number.removeAll();
+                flag = 0; // reset number of images
 
+                // displaying images
                 for (Img img : img_a) {
-                    flag++;
+                    flag++; // image count
                     Image image = null;
+
+                    // get thumbnail of image
                     try {
                         image = ImageIO.read(img.getThumbnail());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
 
+                    assert image != null;
                     ImageIcon imageIcon = new ImageIcon(image);
-                    JLabel label = new JLabel(imageIcon);
                     String file_name = img.getFile_name();
-                    if ((flag%4)==1){
-                        label.setBounds(40,30+(flag-1)*40,100,100);
-                        JLabel filename_label = new JLabel(file_name);
-                        filename_label.setBounds(40,140+(flag-1)*40,100,20);
-                        display.add(label);
-                        display.add(filename_label);
-                    }else if ((flag%4)==2){
-                        label.setBounds(190,30+(flag-2)*40,100,100);
-                        JLabel filename_label = new JLabel(file_name);
-                        filename_label.setBounds(190,140+(flag-2)*40,100,20);
-                        display.add(label);
-                        display.add(filename_label);
-                    }else if ((flag%4)==3){
-                        label.setBounds(340,30+(flag-3)*40,100,100);
-                        JLabel filename_label = new JLabel(file_name);
-                        filename_label.setBounds(340,140+(flag-3)*40,100,20);
-                        display.add(label);
-                        display.add(filename_label);
-                    }else if ((flag%4)==0){
-                        label.setBounds(490,30+(flag-4)*40,100,100);
-                        JLabel filename_label = new JLabel(file_name);
-                        filename_label.setBounds(490,140+(flag-4)*40,100,20);
-                        display.add(label);
-                        display.add(filename_label);
-                    }
 
-                    display.repaint();
+                    // create button containing image and filename
+                    JButton image_button = new JButton(file_name, imageIcon);
+                    image_button.setVerticalTextPosition(SwingConstants.BOTTOM);
+                    image_button.setHorizontalTextPosition(SwingConstants.CENTER);
+                    image_button.setSize(100, 100);
 
-                    label.addMouseListener(new MouseAdapter() {
+                    p.add(image_button);
+
+                    /* add listeners to image button */
+                    image_button.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
                             super.mouseClicked(e);
                             try {
                                 InputStream img_stream = cl.getImg(img);
                                 Image image = ImageIO.read(img_stream);
-                                Zoom z = new Zoom(image, file_name);
+                                new Display(image, file_name);
                             } catch (Exception ex) {
                                 ex.printStackTrace();
                             }
                         }
                     });
                 }
-                JScrollBar display_scroll = new JScrollBar(JScrollBar.VERTICAL,0, 2, 0, 20);
-                display_scroll.setUnitIncrement(1);
-                display_scroll.setBlockIncrement(1);
-                display_scroll.addAdjustmentListener(new AdjustmentListener() {
-                    @Override
-                    public void adjustmentValueChanged(AdjustmentEvent e) {
-                        int number_of_scroll = e.getValue();
-                    }
-                });
-                display_scroll.setBounds(670,0,15,700);
-                display_scroll.setForeground(fieldpanel_color);
-                display.add(display_scroll);
-                display.setVisible(true);
+
+                // add image panel to scroll panel
+                scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                add(scrollPane);
+
+                // number of images
                 JLabel result_text = new JLabel("found " + flag + " result(s)");
                 result_text.setFont(f);
                 result_text.setForeground(result_color);
-                result_number.add(result_text);
-                result_number.repaint();
+                numberPanel.add(result_text);
+            }
+        });
 
+        /* resizing frame */
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                scrollPane.setBounds(305, 0, getWidth() - 314, getHeight() - 27);
+                fieldPanel.setBounds(0, 0, 295, getHeight() - 150);
+                numberPanel.setBounds(0, getHeight() - 150, 295, 50);
+                buttonPanel.setBounds(0, getHeight() - 100, 295, 100);
             }
         });
     }
-    public static void main(String[] args) throws Exception {
-
-        //skin
-        try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        }catch(Exception e) {
-            System.out.println(e);
-        }
-
-        new Search();
-
-    }
-
 }
