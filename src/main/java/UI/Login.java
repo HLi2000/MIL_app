@@ -4,8 +4,8 @@ import Entities.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
+
 
 /**
  * The UI.Login is used to let user text their username and password and log in to the search engine
@@ -14,11 +14,11 @@ import java.awt.event.ActionListener;
  * @since   2021-12-05
  */
 
-public class Login extends JFrame{
-    //JFrame jFrame = new JFrame("Login");
 
-    private JTextField username = new JTextField();
-    private JPasswordField password = new JPasswordField();
+public class Login extends JFrame {
+
+    private final JTextField username = new JTextField();
+    private final JPasswordField password = new JPasswordField();
     JLabel a1 = new JLabel("Username");
     JLabel a2 = new JLabel("Password");
 
@@ -35,6 +35,9 @@ public class Login extends JFrame{
     Font f_1 = new Font(Font.DIALOG, Font.PLAIN, 13);
 
 
+    /**
+     * The method Login () creates a frame without any component
+     */
     public Login() {
         super("Login");
         Container c = getContentPane();
@@ -46,6 +49,9 @@ public class Login extends JFrame{
         setVisible(true);
     }
 
+    /**
+     * The method init() is to put components on the login frame
+     */
     public void init() {
         //logo panel
         JPanel logopanel = new JPanel();
@@ -82,59 +88,51 @@ public class Login extends JFrame{
         loop();
     }
 
+    /**
+     * The loop() method allows users to see the feedback and make changes to their
+     * user and password until they login successfully
+     */
     public void loop() {
-        cancelbtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                /*clear the textfield after pressing 'clear' button*/
-                username.setText("");
-                password.setText("");
-            }
+        cancelbtn.addActionListener(actionEvent -> {
+            /*clear the textfield after pressing 'clear' button*/
+            username.setText("");
+            password.setText("");
         });
 
         final String[] result = {null};
-        String[] user_name_return = {null};
-        confirmbtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                char[] pa = password.getPassword();
-                String pa_s = String.valueOf(pa);
-                String user_name = username.getText();
-                user_name_return[0] = user_name;
-                User user_login = new User();
-                user_login.setUsername(user_name);
-                user_login.setPassword(pa_s);
-                user_login.hashcode();
-                Client c = new Client();
+        confirmbtn.addActionListener(ae -> {
+            char[] pa = password.getPassword();
+            String pa_s = String.valueOf(pa);
+            String user_name = username.getText();
+            User user_login = new User();
+            user_login.setUsername(user_name);
+            user_login.setPassword(pa_s);
+            user_login.hashcode();
+            Client c = new Client();
 
-                try {
-                    result[0] = c.login(user_login);
-                } catch (Exception E) {
-                    System.out.println("failed to login");
-                }
-                if (result[0].equals("Login Successful")) {
-                    login_status = true;
-                    //return_username(user_name_return[0]);
-                    setVisible(false);
-                    Search s = new Search();
-                } else {
-                    JPanel messagepanel = new JPanel();
-                    messagepanel.setBounds(0, 250, 350, 50);
-                    messagepanel.setBackground(panel_color);
-                    JLabel error_message = new JLabel(result[0]);
-                    error_message.setBounds(0, 10, 400, 30);
-                    Font f = new Font(Font.DIALOG, Font.BOLD, 11);
-                    error_message.setFont(f);
-                    error_message.setForeground(message_color);
-                    messagepanel.add(error_message);
-                    add(messagepanel);
-                    setVisible(true);
-                }
-
+            try {
+                result[0] = c.login(user_login);
+            } catch (Exception E) {
+                System.out.println("failed to login");
             }
+            if (result[0].equals("Login Successful")) {
+                login_status = true;
+                setVisible(false);
+                new Search();
+            } else {
+                JPanel messagepanel = new JPanel();
+                messagepanel.setBounds(0, 250, 350, 50);
+                messagepanel.setBackground(panel_color);
+                JLabel error_message = new JLabel(result[0]);
+                error_message.setBounds(0, 10, 400, 30);
+                Font f = new Font(Font.DIALOG, Font.BOLD, 11);
+                error_message.setFont(f);
+                error_message.setForeground(message_color);
+                messagepanel.add(error_message);
+                add(messagepanel);
+                setVisible(true);
+            }
+
         });
-    }
-    public String return_username(){
-        return username.getText();
     }
 }
