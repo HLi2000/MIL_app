@@ -1,16 +1,14 @@
 package UI;
 
 import Entities.*;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Objects;
 
 /**
  * The UI.search is used to provide user a panel to search and display the images filtered by the chosen conditions
@@ -20,24 +18,19 @@ import java.util.Calendar;
  */
 
 public class Search extends JFrame {
-    Boolean light = false;
-    Boolean MRI = false;
-    Boolean CT = false;
-    Boolean US = false;
-    Boolean XRay = false;
 
-    public static int flag = 0;
+    Boolean light = false; // mode
+    public static int flag = 0; //number of images shown
 
-    /* settings of basic components*/
-    private Container search_c = getContentPane();
     JButton confirm = new JButton("confirm");
     JButton mode = new JButton("mode");
-
+    JPanel line = new JPanel();
+    private final JPanel numberPanel = new JPanel();
 
     // Region
     JLabel region = new JLabel("Region");
     String[] choice_r = new String[]{"All", "Heart", "Arm", "Body", "Head", "Leg"};
-    JComboBox r_choice = new JComboBox(choice_r);
+    JComboBox<String> r_choice = new JComboBox<>(choice_r);
     String[] region_choice = new String[5];
 
     // Modality
@@ -46,22 +39,15 @@ public class Search extends JFrame {
     JCheckBox choice_CT = new JCheckBox("CT");
     JCheckBox choice_US = new JCheckBox("Ultrasound");
     JCheckBox choice_XRay = new JCheckBox("XRay");
-    //JCheckBox choice_ECG = new JCheckBox("ECG");
     String[] modality_choice = new String[4];
-
 
     // Patient name
     JLabel patient = new JLabel("Patient Name:");
-    private JTextField name = new JTextField();
-    private String patient_name = new String();
-    private String patient_name_cap = new String();
+    private final JTextField name = new JTextField();
+    private String patient_name = "";
+    private String patient_name_cap = "";
 
-    JPanel line = new JPanel();
-    private JPanel numberPanel = new JPanel();
-
-
-
-    // Colors
+    // Colors and fonts
     Color line_color = new Color(190, 190, 190);
     Color fieldpanel_color = new Color(54, 54, 54);
     Color text_color = new Color(181, 181, 181);
@@ -73,15 +59,15 @@ public class Search extends JFrame {
     Font f = new Font(Font.DIALOG, Font.BOLD, 16);
     Font welcome_f = new Font(Font.DIALOG, Font.BOLD, 20);
 
-
     /**
      * The method Search() creates a frame without any component
      * */
     public Search() {
         super("Search");
         setBounds(300, 70, 900, 717);
-        setMinimumSize(new Dimension(480,445));
-
+        setMinimumSize(new Dimension(750,700));
+        /* settings of basic components */
+        Container search_c = getContentPane();
         search_c.setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -94,14 +80,18 @@ public class Search extends JFrame {
      *Then add listeners to the buttons and display images
      */
     public void init() {
+
+        // top left search panel initialize
         JPanel fieldPanel = new JPanel();
         fieldPanel.setBackground(fieldpanel_color);
         fieldPanel.setBounds(0,0,295,getHeight()-150);
         fieldPanel.setLayout(null);
 
+        // middle left number of images panel
         numberPanel.setBackground(fieldpanel_color);
         numberPanel.setBounds(0, getHeight()-150, 295, 50);
 
+        // get system time to set relevant welcome label
         Calendar cal=Calendar.getInstance();
         int time = cal.get(Calendar.HOUR_OF_DAY);
         JLabel welcome_label = new JLabel();
@@ -124,6 +114,7 @@ public class Search extends JFrame {
             light = false;
         }
 
+        // set bounds to components in top left search panel
         region.setBounds(20, 75, 70, 50);
         modality.setBounds(20, 133, 100, 20);
         patient.setBounds(20, 215, 130, 50);
@@ -139,19 +130,19 @@ public class Search extends JFrame {
         modality.setFont(f);
         patient.setFont(f);
 
-
-        //line panel
+        // line panel
         line.setBounds(301, 0, 5, 800);
         line.setBackground(line_color);
         add(line);
 
-        //confirm button and panel
+        // confirm button and panel
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBounds(0, getHeight()-100, 295, 100);
         confirm.setBounds(100, 30, 100, 40);
         buttonPanel.add(confirm);
         buttonPanel.add(mode);
 
+        // mode color
         if (!light){
             getContentPane().setBackground(displaypanel_color);
             fieldPanel.setBackground(fieldpanel_color);
@@ -181,8 +172,8 @@ public class Search extends JFrame {
             choice_XRay.setForeground(fieldpanel_color);
             line.setBackground(fieldpanel_color);
         }
-        add(numberPanel);
-        add(buttonPanel);
+
+        // add components to top left search panel
         fieldPanel.add(region);
         fieldPanel.add(modality);
         fieldPanel.add(patient);
@@ -192,132 +183,116 @@ public class Search extends JFrame {
         fieldPanel.add(choice_US);
         fieldPanel.add(choice_XRay);
         fieldPanel.add(name);
-        add(fieldPanel);
 
+        //add left panels to frame
+        add(fieldPanel);
+        add(numberPanel);
+        add(buttonPanel);
+
+        // region choice initialize
         region_choice[0] = "Head";
         region_choice[1] = "Heart";
         region_choice[2] = "Arm";
         region_choice[3] = "Body";
         region_choice[4] = "Leg";
 
+        /* add listener to 'region choice' combobox to get the selected region */
         r_choice.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                    if (r_choice.getSelectedItem().toString() == "All") {
+                    if (Objects.equals(Objects.requireNonNull(r_choice.getSelectedItem()).toString(), "All")) {
                         region_choice[0] = "Head";
                         region_choice[1] = "Heart";
                         region_choice[2] = "Arm";
                         region_choice[3] = "Body";
                         region_choice[4] = "Leg";
-                        System.out.println("r_choice1 " + r_choice.getSelectedItem().toString());
-                    } else if (r_choice.getSelectedItem().toString() == "Head") {
+                    } else if (Objects.equals(r_choice.getSelectedItem().toString(), "Head")) {
                         region_choice[0] = "Head";
                         region_choice[1] = null;
                         region_choice[2] = null;
                         region_choice[3] = null;
                         region_choice[4] = null;
-                        System.out.println("r_choice2 " + region_choice[0]);
-                    } else if (r_choice.getSelectedItem().toString() == "Heart") {
+                    } else if (Objects.equals(r_choice.getSelectedItem().toString(), "Heart")) {
                         region_choice[0] = "Heart";
                         region_choice[1] = null;
                         region_choice[2] = null;
                         region_choice[3] = null;
                         region_choice[4] = null;
-                        System.out.println("r_choice3 " + region_choice[0]);
-                    } else if (r_choice.getSelectedItem().toString() == "Arm") {
+                    } else if (Objects.equals(r_choice.getSelectedItem().toString(), "Arm")) {
                         region_choice[0] = "Arm";
                         region_choice[1] = null;
                         region_choice[2] = null;
                         region_choice[3] = null;
                         region_choice[4] = null;
-                        System.out.println("r_choice4 " + region_choice[0]);
-                    } else if (r_choice.getSelectedItem().toString() == "Body") {
+                    } else if (Objects.equals(r_choice.getSelectedItem().toString(), "Body")) {
                         region_choice[0] = "Body";
                         region_choice[1] = null;
                         region_choice[2] = null;
                         region_choice[3] = null;
                         region_choice[4] = null;
-                        System.out.println("r_choice5 " + region_choice[0]);
-                    } else if (r_choice.getSelectedItem().toString() == "Leg") {
+                    } else if (Objects.equals(r_choice.getSelectedItem().toString(), "Leg")) {
                         region_choice[0] = "Leg";
                         region_choice[1] = null;
                         region_choice[2] = null;
                         region_choice[3] = null;
                         region_choice[4] = null;
-                        System.out.println("r_choice6 " + region_choice[0]);
                     }
                 }
             }
         });
 
-        choice_MRI.addItemListener(new ItemListener() {
+        /* add listeners to 'modality choice' checkboxes */
+        choice_MRI.addActionListener(new ActionListener() {
             @Override
-            public void itemStateChanged(ItemEvent itemEvent) {
-                if (!MRI) {
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(choice_MRI.isSelected()){
                     modality_choice[0] = "MRI";
-                    System.out.println("modality " + modality_choice[0]);
-                    MRI = true;
-                } else {
+                }else{
                     modality_choice[0] = null;
-                    MRI = false;
                 }
             }
         });
-        choice_CT.addItemListener(new ItemListener() {
+        choice_CT.addActionListener(new ActionListener() {
             @Override
-            public void itemStateChanged(ItemEvent itemEvent) {
-                if (!CT) {
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(choice_CT.isSelected()){
                     modality_choice[1] = "CT";
-                    System.out.println("modality " + modality_choice[1]);
-                    CT = true;
-                } else {
+                }else{
                     modality_choice[1] = null;
-                    CT = false;
                 }
             }
         });
-        choice_US.addItemListener(new ItemListener() {
+        choice_US.addActionListener(new ActionListener() {
             @Override
-            public void itemStateChanged(ItemEvent itemEvent) {
-                if (!US) {
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(choice_US.isSelected()){
                     modality_choice[2] = "Ultrasound";
-                    System.out.println("modality " + modality_choice[2]);
-                    US = true;
-                } else {
+                }else{
                     modality_choice[2] = null;
-                    US = false;
                 }
             }
         });
-        choice_XRay.addItemListener(new ItemListener() {
+        choice_XRay.addActionListener(new ActionListener() {
             @Override
-            public void itemStateChanged(ItemEvent itemEvent) {
-                if (!XRay) {
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(choice_XRay.isSelected()){
                     modality_choice[3] = "X Ray";
-                    System.out.println("modality " + modality_choice[3]);
-                    XRay = true;
-                } else {
+                }else{
                     modality_choice[3] = null;
-                    XRay = false;
                 }
             }
         });
-        if (modality_choice[0] == null && modality_choice[1]==null && modality_choice[2]==null && modality_choice[3]==null){
-            modality_choice[0] = "MRI";
-            modality_choice[1] = "CT";
-            modality_choice[2] = "Ultrasound";
-            modality_choice[3] = "X Ray";
-        }
 
-
+        // right panel for images searched
         JPanel p = new JPanel();
         p.setLayout(new WrapLayout());
-        JScrollPane scrollPane = new JScrollPane(p);
-        //scrollPane.setBounds(305, 0, 695, 770);
-        scrollPane.setBounds(305,0,getWidth()-304,getHeight()-27);
 
-        /* add listener to the 'mode' button and let user can choose background color of the search frame*/
+        // right scroll panel that includes p panel
+        JScrollPane scrollPane = new JScrollPane(p);
+        scrollPane.setBounds(305,0,getWidth()-314,getHeight()-27);
+
+        /* add listener to the 'mode' button and let user choose background color of the search frame */
         mode.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -325,6 +300,7 @@ public class Search extends JFrame {
                     getContentPane().setBackground(line_color);
                     fieldPanel.setBackground(lightmode);
                     numberPanel.setBackground(lightmode);
+                    p.setBackground(line_color);
                     buttonPanel.setBackground(lightmode);
                     region.setForeground(fieldpanel_color);
                     modality.setForeground(fieldpanel_color);
@@ -358,18 +334,22 @@ public class Search extends JFrame {
             }
         });
 
+        /* add listener to 'confirm' button to search required image(s) */
         confirm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
 
+                //reset numbers of images panel
                 numberPanel.removeAll();
                 numberPanel.revalidate();
                 numberPanel.repaint();
 
+                //reset p panel displaying images
                 p.removeAll();
                 p.revalidate();
                 p.repaint();
 
+                // get patient name
                 patient_name = name.getText();
                 try {
                     patient_name = patient_name.trim();
@@ -378,15 +358,15 @@ public class Search extends JFrame {
                 } catch (Exception e) {
                     patient_name_cap = "";
                 }
-                System.out.println("region_choice " + Arrays.toString(region_choice));
-                System.out.println("modality_choice " + Arrays.toString(modality_choice));
-                System.out.println("patient_name_cap " + patient_name_cap);
+
+                //send search information
                 SearchInfo searchInfo = new SearchInfo(modality_choice, region_choice, patient_name_cap);
 
-                Client cl = new Client();
+                Client cl = new Client(); // initialize client to request images
 
-                Img[] img_a;
+                Img[] img_a; // container for images
 
+                // store images searched
                 try {
                     img_a = cl.search(searchInfo);
                 } catch (Exception e) {
@@ -394,27 +374,33 @@ public class Search extends JFrame {
                     img_a = new Img[]{};
                 }
 
-                flag = 0;
+                flag = 0; // reset number of images
 
+                // displaying images
                 for (Img img : img_a) {
-                    flag++;
+                    flag++; // image count
                     Image image = null;
+
+                    // get thumbnail of image
                     try {
                         image = ImageIO.read(img.getThumbnail());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+
+                    assert image != null;
                     ImageIcon imageIcon = new ImageIcon(image);
                     String file_name = img.getFile_name();
-                    JButton image_button = new JButton(file_name,imageIcon);
+
+                    // create button containing image and filename
+                    JButton image_button = new JButton(file_name, imageIcon);
                     image_button.setVerticalTextPosition(SwingConstants.BOTTOM);
                     image_button.setHorizontalTextPosition(SwingConstants.CENTER);
-
-                    image_button.setSize(100,100);
-
+                    image_button.setSize(100, 100);
 
                     p.add(image_button);
 
+                    /* add listeners to image button */
                     image_button.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
@@ -422,18 +408,19 @@ public class Search extends JFrame {
                             try {
                                 InputStream img_stream = cl.getImg(img);
                                 Image image = ImageIO.read(img_stream);
-                                Display z = new Display(image, file_name);
+                                new Display(image, file_name);
                             } catch (Exception ex) {
                                 ex.printStackTrace();
                             }
                         }
                     });
                 }
+
+                // add image panel to scroll panel
                 scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
                 add(scrollPane);
 
-
-                System.out.println("flag" + flag);
+                // number of images
                 JLabel result_text = new JLabel("found " + flag + " result(s)");
                 result_text.setFont(f);
                 result_text.setForeground(result_color);
@@ -441,13 +428,15 @@ public class Search extends JFrame {
             }
         });
 
+        /* resizing frame */
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                scrollPane.setBounds(305,0,getWidth()-304,getHeight()-27);
-                fieldPanel.setBounds(0,0,295,getHeight()-150);
-                numberPanel.setBounds(0, getHeight()-150, 295, 50);
-                buttonPanel.setBounds(0, getHeight()-100, 295, 100);}
+                scrollPane.setBounds(305, 0, getWidth() - 314, getHeight() - 27);
+                fieldPanel.setBounds(0, 0, 295, getHeight() - 150);
+                numberPanel.setBounds(0, getHeight() - 150, 295, 50);
+                buttonPanel.setBounds(0, getHeight() - 100, 295, 100);
+            }
         });
     }
 }
