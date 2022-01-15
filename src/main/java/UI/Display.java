@@ -1,9 +1,6 @@
 package UI;
 
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 import javax.swing.*;
 /**
